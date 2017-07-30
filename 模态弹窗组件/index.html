@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+    <div class = "m-modal">
+        <div class = "modal_align"></div>
+        <div class = "modal_wrap">
+            <div class = "modal_head">标题</div>
+            <div class = "modal_body">内容</div>
+            <div class = "modal_foot">
+                <a href="#" class="confirm">确认</a>
+                <a href="#" class="cancel">取消</a>
+            </div>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+    <script>
+        var modal = new Modal({
+    //1.内容配置
+            content:"内容在此",
+    //2.动画设置
+            animation:{
+                enter:"bounceIn",
+                leave:bounceOut
+            },
+    //3.confiem回调
+            onConfirm:function(){
+                console.log('ok')
+            },
+    //4.cancel回调
+            onCancel:function(){
+                console.log('cancel');
+            }
+        })
+
+        //方法调用
+        modal.show(/*可以传入caontent*/)
+        modal.hide()
+    </script>
+</body>
+</html>
