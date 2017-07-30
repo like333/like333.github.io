@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>级联菜单</title>
+</head>
+
+<body>
+    <form name="menu">
+        <select name="type">
+            <option>请选择类型</option>
+        </select>
+        <select name="product">
+            <option>请选择商品</option>
+        </select>
+    </form>
+    <script>
+        var type = [
+            { text: "下衣", value: "1" },
+            { text: "上衣", value: "2" },
+        ]
+        var product = {
+            1: [
+                { text: "长裤", value: '1-1' },
+                { text: "长裙", value: '1-2' },
+                { text: "短裤", value: '1-3' },
+                { text: "短裙", value: '1-4' },
+                { text: "牛仔裤", value: '1-5' },
+                { text: "休闲裤", value: '1-6' }
+            ],
+            2: [
+                { text: "短袖", value: '2-1' },
+                { text: "长袖", value: '2-2' },
+                { text: "雪纺", value: '2-3' },
+                { text: "连衣裙", value: '2-4' },
+                { text: "T恤", value: '2-5' }
+            ]
+        }
+
+        var menuForm = document.forms.menu;
+        var typeSelect = menu['type'];
+        var productSelect = menu['product'];
+        function fillSelect(select, fill) {
+            for (var i = select.length - 1; i > 0; i--) {
+                select.remove(i);
+            }
+            fill.forEach(function (data) {
+                var option = new Option(data.text, data.value);
+                select.add(option);
+            })
+        }
+        fillSelect(typeSelect, type);
+
+        typeSelect.addEventListener('change', function (event) {
+            var fill = product[event.target.value] || [];
+            fillSelect(productSelect, fill);
+
+        })
+    </script>
+</body>
+
+</html>
