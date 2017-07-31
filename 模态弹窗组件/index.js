@@ -1,12 +1,10 @@
-class Modal{
-    constructor(){
+function Modal(){
 
-    }
+}
 
-    show(){
+Modal.prototype.show = function(){
+    
+}
+Modal.prototype.hide = function(){
 
-    }
-    hide(){
-        
-    }
 }

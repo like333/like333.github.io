@@ -35,7 +35,7 @@ label .icon{
     display:block;
     width: 36px;
     height: 36px;
-    background: url(./img/camera.png); 
+    background: url(../img/camera.png); 
     background-size:contain;
 }
 label span:last-child{
