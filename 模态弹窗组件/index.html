@@ -6,9 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./animate.css">
+    <style>
+        body{
+             background-color: #aaa;
+        }
+        .u-trigger{
+            display: block;
+            margin:90px auto;
+            width: 90px;
+            height: 30px;
+            background: #ab3256;
+            color: white;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+        .u-trigger:hover{
+            background: #bb3256;
+        }
+        .u-trigger:active{
+            background: #ab3256;
+        }
+    </style>
 </head>
 <body>
-    <div class = "m-modal">
+    <!-- <div class = "m-modal">
         <div class = "modal_align"></div>
         <div class = "modal_wrap">
             <div class = "modal_head">标题</div>
@@ -18,7 +41,10 @@
                 <a href="#" class="cancel">取消</a>
             </div>
         </div>
-    </div>
+    </div> -->
+    <button class="u-trigger">show modal</button>
+    
+    <script src = "./animate.js"></script>
     <script src="./index.js"></script>
     <script>
         var modal = new Modal({
@@ -27,21 +53,24 @@
     //2.动画设置
             animation:{
                 enter:"bounceIn",
-                leave:bounceOut
-            },
-    //3.confiem回调
-            onConfirm:function(){
-                console.log('ok')
-            },
-    //4.cancel回调
-            onCancel:function(){
-                console.log('cancel');
+                leave:"bounceOut"
             }
         })
 
         //方法调用
-        modal.show(/*可以传入caontent*/)
-        modal.hide()
+        modal.on('confirm', function(){
+            console.log('confirm');
+        })
+        modal.on('cancel', function(){
+            console.log('cancel');
+        })
+        document.querySelector('.u-trigger').addEventListener(
+            'click', function(){
+                modal.show({
+                   content: "<h3>显示弹框内容</h3>"
+                })
+        })
+        
     </script>
 </body>
 </html>
