@@ -1,5 +1,12 @@
-###使用说明
+### 使用说明
+```html
+<link rel="stylesheet" type="text/css" href="./style.css">
+<link rel="stylesheet" type="text/css" href="./animate.css">
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src = "./animate.js"></script>
+<script src="./index.js"></script>
 ```
+```javascript
 
  var modal = new Modal({
     //1.内容配置
