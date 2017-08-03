@@ -25,10 +25,13 @@
     }
 
     function TextareaAt(props) {
+
         this.props = props || {};
         this.at = this.props.at || "@";
         this.isAt = this.props.isAt || true;
-
+        
+        //可配置参数
+        this.box = this.props.box || $('body');
         this.popData = this.props.popData || listData;
         this.popTitle = this.props.popTitle || "选择最近@的人或直接输入";
         this.container = this._layout.cloneNode(true);
@@ -37,19 +40,19 @@
         this.textarea = $(this.container).find('#t');
         this.div = $(this.container).find('#d');
         this.pop = $(this.container).find('#pop')
-
-        this._init();
+        
     }
 
     extend(TextareaAt.prototype, {
         _init: function () {
             this.pop.hide();
-            document.body.appendChild(this.container);
+            this.box.append(this.container);
 
             this.fn_isAt();
             this._popData();
         },
-        _layout: html2node(template),
+        _layout:html2node(template),
+        // show: function(){return html2node(template)},
         fn_isAt: function () {
             var _this = this;
             if (_this.isAt) {

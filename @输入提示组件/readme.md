@@ -7,6 +7,7 @@
 ```javascript
 
   var t1 = new TextareaAt({
+            box:$('#test'),//容器，默认是Body
             at: "#" ,  //提示的符号,默认是@
             isAt:"true",//是否显示弹出层，默认为true显示
             data:['小红','小明'],  //弹出层里的内容列表

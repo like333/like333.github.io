@@ -8,21 +8,26 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
-
+    <style>
+        #test{
+            width: 400px;
+            margin: 100px auto;
+        }
+    </style>
 <body>
-    <!-- <div id="container">
-        <textarea id="t" class="textarea"></textarea>
-        <div id="pop"></div>
-        <div id="d" class="textarea"></div>
-    </div> -->
+   <div id="test">
+
+   </div>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
         crossorigin="anonymous"></script>
     <script src="./TextareaAt.js"> </script>
     <script>
         var t1 = new TextareaAt({
-            at: "@"
-        })
+            box:$('#test')
+        });
+        t1._init();
+       
     </script>
 </body>
 
