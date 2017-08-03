@@ -4,37 +4,69 @@
 }
 
 .textarea {
+    margin:30px auto;
+    display: block;
     padding: 10px;
-    width: 200px;
+    width: 400px;
     border: 1px solid gray;
     font-size: 12px;
     font-family: sans-serif;
     line-height: 1.5em;
 }
-
+#textBox{
+    margin:30px auto;
+    width: 420px;
+    position: relative;
+}
 #t {
     resize: none;
     overflow: hidden;
     min-height: 50px;
+   
 }
 
 #pop {
     display: none;
     position: absolute;
-    width: 50px;
-    height: 20px;
-    background: blue;
+    width: 168px;
+    /* height: 20px; */
+    background: white; 
+    font-size: 12px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+    z-index: 99;
+}
+#pop p {
+    padding: 5px 0;
+    text-align: center;
+    background: #f9f9f9;
+}
+#pop .atList{
+    margin: 0;
+    padding: 2px;
+    max-height: 300px;
+    overflow: auto;
+}
+#pop .atList li{
+    list-style: none;
+    padding: 0 10px;
+    height: 28px;
+    line-height: 28px;
+    cursor: pointer;
 }
 
+#pop .atList li:hover ,#pop .atList .active{
+    background-color: #eee;
+    color: #f77c3d;
+}
 pre {
     font-family: "微软雅黑";
-    width: 200px;
+    width: 400px;
     white-space: pre-wrap;
     word-wrap: break-word;
     position: relative;
 }
 
 #d {
-    position: absolute;
-    left: -9999999px;
+     position: absolute;
+    left: -9999999px; 
 }

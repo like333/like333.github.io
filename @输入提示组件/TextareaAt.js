@@ -1,11 +1,13 @@
 !function () {
     var template =
         '<div id="container">\
-                    <textarea id="t" class="textarea"></textarea>\
-                    <div id="pop"></div>\
-                    <div id="d" class="textarea"></div>\
-                 </div>';
-
+            <div id ="textBox">\
+                <textarea id="t" class="textarea"></textarea>\
+                <div id="pop"><p></p><ul class = "atList"></ul></div>\
+            </div>\
+            <div id="d" class="textarea"></div>\
+        </div>';
+    var listData = ['小红', '小明', '一个长长的id', '不要不要的', '小仙女'];
     // 功能函数
     function html2node(str) {
         var container = document.createElement('div');
@@ -26,7 +28,11 @@
         this.props = props || {};
         this.at = this.props.at || "@";
         this.isAt = this.props.isAt || true;
+
+        this.popData = this.props.popData || listData;
+        this.popTitle = this.props.popTitle || "选择最近@的人或直接输入";
         this.container = this._layout.cloneNode(true);
+
 
         this.textarea = $(this.container).find('#t');
         this.div = $(this.container).find('#d');
@@ -39,8 +45,9 @@
         _init: function () {
             this.pop.hide();
             document.body.appendChild(this.container);
-            this._popClick();
+
             this.fn_isAt();
+            this._popData();
         },
         _layout: html2node(template),
         fn_isAt: function () {
@@ -55,15 +62,16 @@
 
                     value = value.replace(eval('/' + _this.at + '/g'), '<span>' + _this.at + '</span>');
                     _this.div.html("<pre>" + value + "</pre>");
+
                     var span = _this.div.find('span:last'),
                         divpos = _this.div.offset(),
                         pos = span.offset();
-                    //如果span存在，即如果有输入@,设置pop位置跟@一样
 
+                    //如果span存在，即如果有输入@,设置pop位置跟@一样
                     if (pos !== undefined) {
                         _this.pop.css({
-                            left: (pos.left - divpos.left) + 'px',
-                            top: (pos.top - divpos.top + 15) + 'px'
+                            left: (pos.left - divpos.left + 15) + 'px',
+                            top: (pos.top - divpos.top + 20) + 'px'
                         })
                     }
 
@@ -77,15 +85,29 @@
                     _this.textarea.on('input', function () {
                         $(this).css('height', _this.div.height());
                     })
+
+                    var name = '';
+                    //  console.log(cursor);
+                    _this.pop.find('li').on("click", function () {
+                        name = $(this).html();
+                        var end = cursor + name.length;
+                        target.setRangeText(name, cursor, end, 'end');
+                        _this.pop.hide();
+                    })
                 });
             }
         },
 
-        _popClick: function () {
+
+        _popData: function () {
             var _this = this;
-            this.pop.on("click", function () {
-                _this.pop.hide();
-            })
+            var data = this.popData, title = this.popTitle;
+            this.pop.find('p').html(title);
+
+            var listHtml = data.map(function (elem) {
+                return '<li>' + elem + '</li>';
+            }).join('');
+            _this.pop.find('.atList').append(listHtml);
         }
     })
     //Export
