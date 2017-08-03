@@ -11,6 +11,7 @@
  var modal = new Modal({
     //1.内容配置
             content:"内容在此",
+            title:"弹出框标题",
     //2.动画设置
             animation:{
                 enter:"bounceIn",
@@ -33,3 +34,10 @@
         })
 
 ```
+
+### Demo
+http://like333.github.io/模态弹窗组件/index.html
+
+### 说明
+* 动画使用添加css样式的方法
+* 引用动画的样式来自`animate.css`  https://daneden.github.io/animate.css/
