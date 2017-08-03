@@ -1,0 +1,351 @@
+body{
+    background-color: rgb(192,203,288);
+}
+textarea{
+     font-family:"微软雅黑";
+}
+body ,p,input,ul{
+    margin: 0;
+    padding: 0;
+}
+#container{
+    margin: 20px auto;
+    width: 600px;
+}
+#message{
+    width:100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background: white;
+    margin-bottom: 10px;
+}
+@font-face{
+    font-family: "WBhkwwicon";
+    src:url('./fonts/WBhkwwicon.eot');
+    src:url('./fonts/WBhkwwicon.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/WBhkwwicon.woff') format('woff'),
+        url('./fonts/WBhkwwicon.ttf') format('truetype'),
+        url('./fonts/WBhkwwicon.svg#WBhkwwicon') format('svg');
+}
+@font-face {
+  font-family: 'iconfont';  /* project id 370476 */
+  src: url('//at.alicdn.com/t/font_69v98v7t7i90ms4i.eot');
+  src: url('//at.alicdn.com/t/font_69v98v7t7i90ms4i.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_69v98v7t7i90ms4i.woff') format('woff'),
+  url('//at.alicdn.com/t/font_69v98v7t7i90ms4i.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_69v98v7t7i90ms4i.svg#iconfont') format('svg');
+}
+ .icon {
+       width: 1em; height: 1em;
+       vertical-align: -0.15em;
+       fill: currentColor;
+       overflow: hidden;
+    }
+.iconfont{
+    font-family: 'iconfont';
+    font-style: normal;
+    font-size:20px;
+    -webkit-font-smoothing:antialiased;
+    -webkit-text-stroke: 0.2px;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+li{
+    list-style: none;
+}
+
+.clear{
+    zoom:1;
+}
+.clear:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.hidden{
+    display: none;
+}
+
+button{
+    outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow:0px 1px 2px rgba(0,0,0,0.1);
+}
+button[class ~= orange]{
+    background: #ff8140;
+    border:1px solid #f77c3d;
+    color: #fff;
+}
+
+
+
+.head{
+     color: #666;
+     padding: 5px 0;
+}
+.head .tips{
+    font-family: "WBhkwwicon" !important;
+    font-size:18px;
+    letter-spacing: .1em;
+}
+.count em{
+    font-family: "WBhkwwicon" !important;
+    font-weight: 600;
+    font-size: 24px;
+}
+.head .count{
+    float: right;
+    font-size: 12px;
+}
+
+form[name = textForm] button[name = public]{
+    width:80px;
+    float: right;
+    height: 28px;
+    line-height: 20px;
+    border: none;
+    border-radius: 2px;
+}
+form[name = textForm] button[name = public]:hover{
+   background: #f77c3d;
+}
+form[name = textForm] button[name = public]:active{
+   background: #ff8140;
+}
+.input{
+    position: relative;
+    box-sizing: border-box;
+    width:100%;
+    min-height:68px;
+    border: 1px solid #ddd; 
+    padding: 5px;
+    margin-bottom: 5px; 
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.15) inset;   
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.15) inset,   
+}
+.click{
+    border-color: #fa7d3c;
+    box-shadow: none;
+}
+textarea[name = textArea]{
+    resize: none;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 68px;
+    border:none;
+    outline: none;
+}
+.mask{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.successTips{
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.successTips::before{
+    content: "";
+    vertical-align: middle;
+    margin-right: 5px;
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background: url(./img/success.png);
+    background-size:contain;
+}
+.list{
+    width: 168px;
+    height: 320px;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    font-size: 12px;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.3);
+}
+.list p{
+    margin: 5px 0;
+    text-align: center;
+}
+.list .atList{
+    margin: 0;
+   text-align: left;
+   padding: 2px;
+}
+.list .atList li{
+    padding:0 10px;
+    height: 28px;
+    line-height: 28px;
+}
+.list .atList .active,.list .atList li:hover{
+    background-color: #eee;
+    color: #f77c3d;
+}
+
+.con-options .icon-down:hover{
+    color: #f77c3d;
+    cursor: pointer;
+}
+.con-options .icon-help{
+    color: #12aaaa;
+    vertical-align: middle;
+}
+
+
+.contentList{
+    box-shadow:0px 0px 3px rgba(0,0,0,0.15);
+    width: 100%;
+    position: relative;
+    background-color: white;
+    margin-bottom: 10px;
+}
+.content{
+    padding: 20px;
+}
+.content .header{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+.content .contentMesg{
+    background-color: white;
+    margin-left:70px;
+}
+.content .contentMesg p{
+    line-height: 1.8em;
+     font-size: 14px;
+}
+.content .contentMesg .user-name {
+    font-weight: bold;
+    color: #555;
+}
+.content .contentMesg p:nth-of-type(2){
+    font-size: 12px;
+    color: #aaa;
+}
+.content .contentMesg .publicTime{
+    padding-right: 5px;
+}
+.content .contentMesg .customPort{
+    padding-left: 5px;
+}
+.content .con-options{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.con-options{
+    position: relative;
+}
+.con-options ul{
+    position: absolute;
+    width: 80px;
+    padding: 2px;
+    top: 18px;
+    left: -72px;
+    border: 1px solid #eee;
+    background-color: white;
+    box-shadow:1px 2px 3px 1px rgba(0,0,0,0.1);
+}
+.con-options li{
+    font-size: 14px;
+    color:#555;
+    height: 28px;
+    padding: 0 10px;
+    line-height: 26px;
+}
+.con-options li:hover{
+    background: #fafafa;
+    color: #fa7d3c;
+}
+.con-options .del-modal{
+    background: white;
+    position: absolute;
+    padding: 15px;
+    width: 160px;
+    top: -96px;
+    left: 50%;
+    font-size: 12px;
+    color: #555;
+    box-shadow:0px 4px 20px 1px rgba(0,0,0,0.2);
+    border:1px solid #ddd;
+    -webkit-transform: translateX(50%);
+    transform: translateX(-50%);
+}
+.con-options .del-modal:after{
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 86px;
+    border-top: 8px solid white;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+
+}
+
+.con-options .del-btn{
+    padding: 10px 10px 0;
+}
+.con-options .del-btn button{
+    width: 62px;
+    height: 26px;
+}
+
+.con-options .del-btn .cancel{
+    border:1px solid #ccc;
+    margin-left: 10px;
+    background: white;
+}
+.con-options .del-btn .confirm:hover{
+    background-color:#f77c3d; 
+}
+.con-options .del-btn .confirm:active{
+    background-color:#ff8140; 
+}
+.con-options .del-btn .cancel:hover{
+    box-shadow:0px 1px 2px rgba(0,0,0,0.15);
+}
+
+.contentList .options{
+    display: flex;
+    display: -webkit-flex;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    
+}
+.contentList .options a{
+    display: inline-block;
+    -webkit-flex: auto;
+    flex:auto;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    text-decoration: none;
+    color: #999;
+    font-size: 12px;
+}
+.contentList .options a:nth-of-type(2){
+    border-left: 1px solid #eee ;
+    border-right: 1px solid #eee ;
+}
+.contentList .options a:hover{
+    color: #fa7d3c;
+}
+.contentList .options a i{
+    font-size:12px;
+    padding-right: 5px;
+}
+.contentList .options a svg{
+    padding-right: 5px;
+}
