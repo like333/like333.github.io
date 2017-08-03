@@ -16,13 +16,11 @@
 http://like333.github.io/@输入提示组件/test.html
 
 ### TextareaAt.js
-***
 
 *输入框高度随内容增加
 *输入at关键字，如`@`显示提示框，提示框位置跟随最后一个`@`
 
 ### 设计思路
-***
 
 *参考 https://segmentfault.com/q/1010000000199877
 *用 `css` 控制，做一个和 `textarea` 一样样式的 `div`，放在一个不可见的地方。
