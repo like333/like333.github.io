@@ -14,9 +14,9 @@ function html2node(para) {
 
 
 var data = {
-    src: "./img/header.jpg",
-    userName: '一块八',
-    customPort: '微博weibi.com'
+    src: "./img/header.jpg", //头像地址
+    userName: '一块八', //用户名
+    customPort: '微博weibi.com' //发布微博的客户端
 }
 
 //微博内容结构
@@ -57,8 +57,9 @@ function content(p, t, val, callback) {
                     <a href="javascript:;">推广</a>\
                     <a href="javascript:;"><i class="iconfont">&#xe61f;</i>评论</a>\
                     <a href="javascript:;">\
+                        <span class = "light"></span>\
                        <span class = "supportIcon"></span>\
-                        赞\
+                        <i>赞</i>\
                     </a>\
                 </div>\
         ';
@@ -75,7 +76,6 @@ function content(p, t, val, callback) {
     callback && callback();
 
 }
-
 
 function Release(options) {
     this.options = options || {};
@@ -98,10 +98,12 @@ extend(Release.prototype, {
         })
         _this.setCount();
         this._release();
+        //发布微博按钮点击事件
         $('input.public').on("click", function () {
             _this._submit();
         });
     },
+    //微博字数计数
     setCount: function () {
         var _this = this;
         var count = $('.count em');
@@ -123,57 +125,71 @@ extend(Release.prototype, {
             count.html(len);
         })
     },
+    //发布微博按钮启动
     _release: function () {
         var btn = $('input.public');
-
-        if (this.textArea.val().length != 0) {
-
-            btn.addClass('orange');
-        } else {
-            btn.removeClass('orange')
-        }
-
+        this.textArea.on('input', function () {
+            if ($(this).val().length != 0) {
+                btn.addClass('orange');
+            } else {
+                btn.removeClass('orange')
+            }
+        })
     },
+    //发布微博，微博删除，点赞控制
     _submit: function () {
-        var btn = $('input.public')
-        var count = $('.count em');
-        var _this = this;
-        var val = _this.textArea.val();
-        var $span = _this.mask.find('span');
-        var $img = _this.mask.find('img');
+        var btn = $('input.public'),//发布按钮
+            count = $('.count em'),//微博文字技术
+             _this = this,
+            val = _this.textArea.val(),//微博内容
+            $span = _this.mask.find('span'),//发布成功提示
+            $img = _this.mask.find('img');//提示图片
 
         if (val.length > 0) {
-            content($('#wbList'), "50s前", val, function () {
-                _this.mask.show('fast', function () {
+            content($('#wbList'), "50s前", val, function () {//创建节点
+                _this.mask.show('fast', function () {//显示成功遮罩层
                     $span.css('WebkitTransform', 'scale(1,1)');
                     $img.css('WebkitTransform', 'scale(1,1)');
-                    $span.on('webkitTransitionEnd', function () {
+                    $span.on('webkitTransitionEnd', function () {//遮罩消失后显示节点
                         setTimeout(function () {
-                            _this.mask.animate({ opacity: '0' }, 300, "linear", function () {
+                            _this.mask.animate({ opacity: '0' }, 300, "linear", function () {//遮罩消失
                                 $(this).hide();
                                 $(this).css('opacity', '1');
                                 $span.css('WebkitTransform', 'scale(0,0)');
                                 $img.css('WebkitTransform', 'scale(0,0)');
                                 var $wbList = $('#wbList').find('.contentList:first');
-                                var h = $wbList.outerHeight(true);
-                                // $wbList.find('.options a:last').children().not('i').hide();
-                                $wbList.show("500");
+                                $wbList.show("500");//显示节点
                             })
                         }, 1000)
                     });
-
                 });
-                $('.icon-down:first').on('click', function () {
+                $('.icon-down:first').on('click', function () {//删除操作
                     _this._del($(this));
-                })
+                });
+                //点赞操作
+                //------------------------------------
+                var num = 0;
+                var isClick = false;
                 $('.options').find('a:last').on('click', function () {
-                    _this._support($(this));
-                })
+                    if (!isClick) {
+                        num += 1;
+                        _this._support($(this), isClick, num);
+                    } else {
+                        _this._support($(this), isClick, "赞");
+                        num = 0;
+                    }
+                     isClick = !isClick;
+                });
+                //-----------------------------------------------------
             });
             _this.textArea.val("");
             count.html(0);
         }
     },
+    //删除微博
+    /**
+     *  * @param {*} obj 当前操作的微博
+     */
     _del: function (obj) {
         var conOpt = obj.parents('.con-options');
         conOpt.find('ul').toggleClass('hidden').on(
@@ -196,12 +212,24 @@ extend(Release.prototype, {
         );
 
     },
-    _support: function (obj) {
+    //微博点赞
+    /**
+     *  * @param {*} obj 当前操作的微博的父级
+     *  * @param {*} isClick 当前用户是否已经点赞
+     *  * @param {*} num 点赞数
+     */
+    _support: function (obj, isClick, num) {
         var $options = obj.parents('.options:first');
         var $support = $options.find('a:last');
-        $support.find('span').
-        css('background-image',"url(../img/hand2.png)").
-        addClass('supportAnimate');
+        if (!isClick) {
+            $support.find('span:last').addClass('supportAnimate')
+            $support.find('span:first').addClass('lightAnimate');
+            $support.find('i').html(num);
+        } else {
+            $support.find('i').html(num);
+            $support.find('span:last').removeClass('supportAnimate')
+            $support.find('span:first').removeClass('lightAnimate');
+        }
     }
 })
 

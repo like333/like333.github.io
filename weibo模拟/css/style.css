@@ -54,7 +54,9 @@ body ,p,input,ul{
 li{
     list-style: none;
 }
-
+i{
+    font-style: normal;
+}
 .clear{
     zoom:1;
 }
@@ -73,13 +75,14 @@ input[type = button]{
     font-size: 12px;
     box-shadow:0px 1px 2px rgba(0,0,0,0.1);
 }
-input[class ~= orange]{
-    background: #ff8140;
-    border:1px solid #f77c3d;
+
+input[class ~= public]{
+    background: #ffc09f;
+    border:1px solid #fbbd9e;
     color: #fff;
 }
-input[class ~= public]{
-    background: #eead3c;
+input[class ~= orange]{
+    background: #ff8140;
     border:1px solid #f77c3d;
     color: #fff;
 }
@@ -111,7 +114,7 @@ form[name = textForm] input[name = public]{
     border-radius: 2px;
 }
 input[class ~= orange]:hover{
-   background: #f77c3d;
+   background: #eb7350;
 }
 input[class ~= orange]:active{
    background: #ff8140;
@@ -329,7 +332,7 @@ input[class ~= orange]:active{
 }
 
 .con-options .del-btn .cancel{
-    border:1px solid #ccc;
+    border:1px solid #dedede;
     margin-left: 10px;
     background: white;
 }
@@ -371,11 +374,12 @@ input[class ~= orange]:active{
 }
 
 
-.supportAnimate{
-    animation: 1s support forwards; 
+.contentList .options .supportAnimate{
+    background-image: url(../img/hand2.png);
+    animation: 0.6s support forwards; 
 }
 .lightAnimate{
-    animation: 1s light forwards;
+    animation: 0.6s light forwards;
 }
 .options .iconfont{
     font-size: 14px;
@@ -386,43 +390,40 @@ input[class ~= orange]:active{
     width: 12px;
     height: 16px;
     display: inline-block;
-    transition:1s;
+    /* transition:0.8s; */
     background: url(../img/hand1.png) no-repeat;
     background-size: 12px 12px;
 }
-.options a:nth-of-type(3) :before{
+.options a:nth-of-type(3) .light{
     display: inline-block;
-    content: "";
     background: url(../img/light.png) no-repeat;
     background-size: contain;
     width: 12px;
     height: 12px;
-    transform: translateY(-14px) scale(0);
+    position: absolute;
+    top: -8px;
+    left:50%;
+     transform: translateX(-100%) scale(0); 
 }
 @keyframes light{
     0%{
-        transform: translateY(-14px) scale(0);
+        transform: translateX(-100%) scale(0);
     }
     33%{
-         transform: translateY(-14px) scale(0.5);
+         transform:  translateX(-100%) scale(0.5);
     }
     66%{
-        transform:translateY(-14px) scale(1)
+        transform: translateX(-100%) scale(1)
     }
     100%{
-        transform: translateY(-14px) scale(0);
+        transform:  translateX(-100%) scale(0);
     }
 }
 @keyframes support{
     0%{
-        transform: scale(0);
-        /* transform-origin: 50% 50%;  */
+        transform: scale(1);
     }
-    30%{
-         transform: rotate(-10deg) scale(0.8);  
-         
-    }
-    66%{
+    50%{
         transform:rotate(10deg) scale(1.6); 
     }
     100%{
