@@ -19,13 +19,14 @@ body ,p,input,ul{
     background: white;
     margin-bottom: 10px;
 }
+
 @font-face{
     font-family: "WBhkwwicon";
-    src:url('./fonts/WBhkwwicon.eot');
-    src:url('./fonts/WBhkwwicon.eot?#iefix') format('embedded-opentype'),
-        url('./fonts/WBhkwwicon.woff') format('woff'),
-        url('./fonts/WBhkwwicon.ttf') format('truetype'),
-        url('./fonts/WBhkwwicon.svg#WBhkwwicon') format('svg');
+    src:url('../fonts/WBhkwwicon.eot');
+    src:url('../fonts/WBhkwwicon.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/WBhkwwicon.woff') format('woff'),
+        url('../fonts/WBhkwwicon.ttf') format('truetype'),
+        url('../fonts/WBhkwwicon.svg#WBhkwwicon') format('svg');
 }
 @font-face {
   font-family: 'iconfont';  /* project id 370476 */
@@ -66,20 +67,22 @@ li{
     display: none;
 }
 
-button{
+input[type = button]{
     outline: none;
     cursor: pointer;
     font-size: 12px;
     box-shadow:0px 1px 2px rgba(0,0,0,0.1);
 }
-button[class ~= orange]{
+input[class ~= orange]{
     background: #ff8140;
     border:1px solid #f77c3d;
     color: #fff;
 }
-
-
-
+input[class ~= public]{
+    background: #eead3c;
+    border:1px solid #f77c3d;
+    color: #fff;
+}
 .head{
      color: #666;
      padding: 5px 0;
@@ -99,7 +102,7 @@ button[class ~= orange]{
     font-size: 12px;
 }
 
-form[name = textForm] button[name = public]{
+form[name = textForm] input[name = public]{
     width:80px;
     float: right;
     height: 28px;
@@ -107,10 +110,10 @@ form[name = textForm] button[name = public]{
     border: none;
     border-radius: 2px;
 }
-form[name = textForm] button[name = public]:hover{
+input[class ~= orange]:hover{
    background: #f77c3d;
 }
-form[name = textForm] button[name = public]:active{
+input[class ~= orange]:active{
    background: #ff8140;
 }
 .input{
@@ -124,24 +127,36 @@ form[name = textForm] button[name = public]:active{
     -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.15) inset;   
     box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.15) inset,   
 }
+ #list,
+ #list #textBox{ 
+    width: 100%;
+     min-height: 68px;
+ }
+ #list .textarea{
+     width: 100%;
+     padding: 5px;
+     min-height: 68px;
+     box-sizing: border-box;
+ }
+#list #t{
+    outline: none;
+    border: none;
+}
+#d pre{
+    width: 100%;
+}
 .click{
     border-color: #fa7d3c;
     box-shadow: none;
 }
-textarea[name = textArea]{
-    resize: none;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 68px;
-    border:none;
-    outline: none;
-}
+
 .mask{
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 999;
 }
 .successTips{
     background-color: white;
@@ -150,14 +165,25 @@ textarea[name = textArea]{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.successTips::before{
+.successTips span{
+    display: inline-block;
+   
+}
+.trans{
+    -webkit-transform: scale(0,0);
+    -moz-transform: scale(0,0);
+    -o-transform: scale(0,0);
+    transform: scale(0,0);
+     transition: 0.3s; 
+}
+.successTips img{
     content: "";
     vertical-align: middle;
     margin-right: 5px;
     display: inline-block;
     width: 36px;
     height: 36px;
-    background: url(./img/success.png);
+    background: url(../img/success.png);
     background-size:contain;
 }
 .list{
@@ -297,7 +323,7 @@ textarea[name = textArea]{
 .con-options .del-btn{
     padding: 10px 10px 0;
 }
-.con-options .del-btn button{
+.con-options .del-btn input[type = button]{
     width: 62px;
     height: 26px;
 }
@@ -334,6 +360,7 @@ textarea[name = textArea]{
     text-decoration: none;
     color: #999;
     font-size: 12px;
+    position: relative;
 }
 .contentList .options a:nth-of-type(2){
     border-left: 1px solid #eee ;
@@ -342,10 +369,64 @@ textarea[name = textArea]{
 .contentList .options a:hover{
     color: #fa7d3c;
 }
-.contentList .options a i{
-    font-size:12px;
+
+
+.supportAnimate{
+    animation: 1s support forwards; 
+}
+.lightAnimate{
+    animation: 1s light forwards;
+}
+.options .iconfont{
+    font-size: 14px;
     padding-right: 5px;
 }
-.contentList .options a svg{
-    padding-right: 5px;
+.options .supportIcon{
+    vertical-align: middle;
+    width: 12px;
+    height: 16px;
+    display: inline-block;
+    transition:1s;
+    background: url(../img/hand1.png) no-repeat;
+    background-size: 12px 12px;
+}
+.options a:nth-of-type(3) :before{
+    display: inline-block;
+    content: "";
+    background: url(../img/light.png) no-repeat;
+    background-size: contain;
+    width: 12px;
+    height: 12px;
+    transform: translateY(-14px) scale(0);
+}
+@keyframes light{
+    0%{
+        transform: translateY(-14px) scale(0);
+    }
+    33%{
+         transform: translateY(-14px) scale(0.5);
+    }
+    66%{
+        transform:translateY(-14px) scale(1)
+    }
+    100%{
+        transform: translateY(-14px) scale(0);
+    }
+}
+@keyframes support{
+    0%{
+        transform: scale(0);
+        /* transform-origin: 50% 50%;  */
+    }
+    30%{
+         transform: rotate(-10deg) scale(0.8);  
+         
+    }
+    66%{
+        transform:rotate(10deg) scale(1.6); 
+    }
+    100%{
+        transform: rotate(0deg) scale(1); 
+         
+    }
 }

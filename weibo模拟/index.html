@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/at.css">
 </head>
 
 <body>
@@ -18,72 +19,36 @@
             </div>
             <form name="textForm" class="clear">
                 <div class="input">
-                    <div class="mask hidden">
+                    <div class="mask">
                         <p class="successTips">
-                            <span>发布成功</span>
+                            <img class="trans" src="./img/success.png"/>
+                            <span class="trans">发布成功</span>
                         </p>
                     </div>
-                    <textarea name="textArea"></textarea>
-                    <div class="list hidden">
-                        <p>选择最近@的人或直接输入</p>
-                        <ul class="atList">
-                            <li class="active">飞乐鸟</li>
-                            <li>长草的菇凉啊</li>
-                            <li>-wtwmy</li>
-                            <li>小乖美货</li>
-                            <li>rh-li</li>
-                        </ul>
+                    <div id="list">
+                       
                     </div>
                 </div>
-                <button class="public orange" name="public">发布</button>
+                <input type = "button" class="public orange" name="public" value="发布">
             </form>
         </div>
-       <div id="wbList">
-            <div class="contentList">
-                <div class="content clear">
-                    <img class="header" src="./img/header.jpg" alt="头像">
-                    <div class="contentMesg">
-                        <p class="user-name">一块八</p>
-                        <p><span class="publicTime">50秒前</span>来自<span class="customPort">微博weibo.com</span></p>
-                        <p class="publicContent">#作品欣赏# 来自美国画手Banzchan为网友们设计的卡通头像٩(๑>◡<๑)۶ </p>
-                    </div>
-                    <div class="con-options">
-                        <i class="iconfont icon-down">&#xe600;</i>
-                        <ul class="hidden">
-                            <li class="del">删除</li>
-                        </ul>
-                        <div class="del-modal hidden">
-                            <p class="del-tip">
-                                <i class="iconfont icon-help">&#xe6f9;</i>
-                                <span>确定要删除这条微博吗？</span>
-                            </p>
-                            <p class="del-btn">
-                                <button class="confirm orange">确定</button>
-                                <button class="cancel">取消</button>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="options">
-                    <a href="#">推广</a>
-                    <a href="#"><i class="iconfont">&#xe61f;</i>评论</a>
-                    <a href="#">
-                        <i class="iconfont">&#xe69b;</i>
-                        <svg class="icon hidden" aria-hidden="true">
-                            <use xlink:href="#icon-yousezan"></use>
-                        </svg>
-                        赞
-                    </a>
-                </div>
-            </div>
-        </div>
+       <div id="wbList"> </div>
     </div>
      
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"
   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
   crossorigin="anonymous"></script>
     <script src="//at.alicdn.com/t/font_69v98v7t7i90ms4i.js"></script>
-    <script src="./index.js"></script>
+    <script src="./js/at.js"></script>
+      <script>
+        var t1 = new TextareaAt({
+            box:$('#list')
+        });
+        t1._init();
+      
+    </script>
+    <script src="./js/index.js"></script>
+  
     
 </body>
 
