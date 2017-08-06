@@ -7,3 +7,4 @@ http://like333.github.io/weibo模拟/index.html
 *微博字数统计
 *删除微博
 *微博点赞
+*点击发布时间更新
