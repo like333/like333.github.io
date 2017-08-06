@@ -157,7 +157,7 @@ extend(Release.prototype, {
                     "date-day":_this._getTime().day,
                     "date-year":_this._getTime().year,
                 });
-                _this._unload();
+               
                 _this.mask.show('fast', function () {//显示成功遮罩层
                     _this.textArea.css('height','68px');
                     $span.css('WebkitTransform', 'scale(1,1)');
@@ -196,6 +196,7 @@ extend(Release.prototype, {
             });
             _this.textArea.val("");
             count.html(0);
+            _this._unload();//微博发布时间更新
         }
     },
     //删除微博
@@ -265,7 +266,6 @@ extend(Release.prototype, {
         var $arrT = $('.contentMesg .publicTime');
        
         $arrT.each(function(index,elem){
-             console.log();
             var disT =Number($arrT.eq(0).attr('date-sec'))-Number($(this).attr('date-sec'));
             var disD = Number($arrT.eq(0).attr('date-day'))-Number($(this).attr('date-day'));
             var disY = Number($arrT.eq(0).attr('date-year'))-Number($(this).attr('date-year'));
