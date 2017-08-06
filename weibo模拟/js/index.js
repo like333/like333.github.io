@@ -170,7 +170,10 @@ extend(Release.prototype, {
                                 $span.css('WebkitTransform', 'scale(0,0)');
                                 $img.css('WebkitTransform', 'scale(0,0)');
                                 var $wbList = $('#wbList').find('.contentList:first');
-                                $wbList.show("500");//显示节点
+                                $wbList.show("500",function(){
+                                    _this._unload();
+                                });//显示节点
+
                             })
                         }, 1000)
                     });
@@ -196,7 +199,7 @@ extend(Release.prototype, {
             });
             _this.textArea.val("");
             count.html(0);
-            _this._unload();//微博发布时间更新
+            //微博发布时间更新
         }
     },
     //删除微博
