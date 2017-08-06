@@ -72,7 +72,6 @@ function content(p, t, val, callback) {
     node.find('.publicContent').html(val);
     node.find('.publicTime').html(t);
     node.hide();
-    console.log("12")
     callback && callback();
 
 }
@@ -102,6 +101,7 @@ extend(Release.prototype, {
         $('input.public').on("click", function () {
             _this._submit();
         });
+        _this._getTime();
     },
     //微博字数计数
     setCount: function () {
@@ -146,8 +146,20 @@ extend(Release.prototype, {
             $img = _this.mask.find('img');//提示图片
 
         if (val.length > 0) {
-            content($('#wbList'), "50s前", val, function () {//创建节点
+            
+            content($('#wbList'), "刚刚", val, function () {//创建节点
+                
+                var $t = $('.contentMesg .publicTime:first');
+                $t.attr({
+                    "date-sec":_this._getTime().ms,
+                    "date-time":_this._getTime().time,
+                    "date-date":_this._getTime().date,
+                    "date-day":_this._getTime().day,
+                    "date-year":_this._getTime().year,
+                });
+                _this._unload();
                 _this.mask.show('fast', function () {//显示成功遮罩层
+                    _this.textArea.css('height','68px');
                     $span.css('WebkitTransform', 'scale(1,1)');
                     $img.css('WebkitTransform', 'scale(1,1)');
                     $span.on('webkitTransitionEnd', function () {//遮罩消失后显示节点
@@ -230,7 +242,50 @@ extend(Release.prototype, {
             $support.find('span:last').removeClass('supportAnimate')
             $support.find('span:first').removeClass('lightAnimate');
         }
+    },
+    _getTime:function(){
+        var t = new Date();
+        function addZero(t){
+            if(t<10){
+                return "0" + t;
+            }else return t;
+        }
+        var time =addZero(t.getHours())+":"+ addZero(t.getMinutes());
+        var date =(t.getMonth()+1) +"月" + t.getDate()+"日";
+       return {
+           ms:t.getTime(),
+           time:time,
+           date:date,
+           day:t.getDate(),
+           year:t.getFullYear()
+       };
+    },
+    //发布新微博之后更新其他微博的发布时间
+    _unload:function(){
+        var $arrT = $('.contentMesg .publicTime');
+       
+        $arrT.each(function(index,elem){
+             console.log();
+            var disT =Number($arrT.eq(0).attr('date-sec'))-Number($(this).attr('date-sec'));
+            var disD = Number($arrT.eq(0).attr('date-day'))-Number($(this).attr('date-day'));
+            var disY = Number($arrT.eq(0).attr('date-year'))-Number($(this).attr('date-year'));
+            if(disT == 0){
+                    $(this).html("刚刚");
+            }else if(disT>=1000 && disT<60000){
+                console.log(disT);
+                $(this).html(parseInt(disT/1000)+"秒前");
+            }else if(disT/1000>=60 && disT/1000/60<60){
+                 $(this).html(parseInt(disT/1000/60)+'分钟前');
+            }else if(disT/1000/60>=60 && disD==0 && disT/1000/60/60<24){
+                 $(this).html('今天'+" "+$(this).attr('date-time'));
+            }else if(disT/1000/60/60>=24 && disY == 0 &&  disD >= 1 ){
+                 $(this).html($(this).attr('date-date'));
+            }else{
+                 $(this).html($(this).attr('date-year')+"年"+$(this).attr('date-date'));
+            }
+        })
     }
+
 })
 
 var R1 = new Release();
