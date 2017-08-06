@@ -199,7 +199,9 @@ extend(Release.prototype, {
             });
             _this.textArea.val("");
             count.html(0);
-            //微博发布时间更新
+            var btn = $('input.public');
+             btn.removeClass('orange')
+            
         }
     },
     //删除微博
@@ -275,7 +277,6 @@ extend(Release.prototype, {
             if(disT == 0){
                     $(this).html("刚刚");
             }else if(disT>=1000 && disT<60000){
-                console.log(disT);
                 $(this).html(parseInt(disT/1000)+"秒前");
             }else if(disT/1000>=60 && disT/1000/60<60){
                  $(this).html(parseInt(disT/1000/60)+'分钟前');
