@@ -9,7 +9,7 @@
 - [x] 9.[商品选择](http://like333.github.io/DOM/商品选择.html)
 - [x] 10.[树状菜单](http://like333.github.io/DOM/树状菜单.html)
 - [x] 11.[tip提示层](http://like333.github.io/DOM/tip提示.html)
-- [x] 12.[表格操作](http://like333.github.io/表单表格数据操作/test.html)
+- [x] 12.[表格操作](http://like333.github.io/DOM/表单表格数据操作/test.html)
 - [x] 13.[照片墙](http://like333.github.io/js应用/照片墙.html)
 - [x] 14.[mac菜单](http://like333.github.io/js应用/苹果菜单.html)
 - [x] 15.[3d动画](http://like333.github.io/移动端/3d动画/9.html)
