@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin-left: 100px;
+        }
+        
+        div {
+            width: 400px;
+            background: greenyellow;
+            border: 1px solid green;
+            border-left-width: 0;
+            border-right-width: 0;
+            height: 40px;
+            transform: translateY(40px);
+        }
+    </style>
+</head>
+
+<body>
+    <!--<div></div>-->
+    <script src="TweenMax.min.js"></script>
+    <script>
+        var str1 = '';
+        var str2 = '';
+        for (var i = 0; i < 10; i++) {
+            str1 += '<div>';
+            str2 += '</div>';
+        }
+        var str = str1 + str2;
+        document.body.innerHTML = str;
+        var aDiv = document.querySelectorAll('div');
+
+        var t = new TimelineMax();
+        t.set('div', {
+            transformPerspective: 5000,
+            // transformOrigin: "top",
+            rotationX: 90,
+            // z: -90
+        })
+        t.staggerTo('div', 1, {
+            cycle: {
+                rotationX: function(i) {
+                    return 0
+                },
+
+            }
+        }, 0.1)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+
+
+    <script src="TweenMax.min.js"></script>
+    <script>
+        var t = new TimelineMax();
+        // t.to('#box1', 2, {
+        //         x: 400,
+        //     })
+        //     .to('#box2', 2, {
+        //         x: 400,
+        //     }, "-=2")
+        // t.staggerTo('div', 1, {
+        //     // x: 400
+        //     cycle: {
+        //         // x: [100, 200, 300]
+        //         x: function(i) {
+        //             return (i + 1) * 50
+        //         }
+        //     }
+        // }, 0.5)
+
+        // t.staggerTo('#con', 4, {
+        //     cycle: {
+        //         bezier: function() {
+        //             return [{
+        //                 x: 0,
+        //                 y: 0
+        //             }, {
+        //                 x: 200,
+        //                 y: 200
+        //             }, {
+        //                 x: 400,
+        //                 y: 0
+        //             }, {
+        //                 x: 600,
+        //                 y: 200
+        //             }]
+        //         }
+        //     }
+        // })
+        // t.staggerTo('div', 2, {
+        //     x: 400,
+
+        //     onComplete: function() {
+        //         this.target.style.background = 'green';
+        //     }
+        // }, 1)
+        t.set('div', {
+            transformPerspective: 300,
+            transformOrigin: "left"
+        });
+        t.to('div', 1, {
+            rotationY: 45
+        })
+    </script>
+</body>
+
+</html>

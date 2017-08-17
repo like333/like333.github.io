@@ -1,0 +1,72 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    background: url(img/shouye_nvsheng_bg.png) center 40px no-repeat;
+    background-size: contain;
+    position: relative;
+}
+
+.swiper-container {
+    padding: 50px 0;
+}
+
+nav {
+    height: 40px;
+    width: 100%;
+    background: url(img/header.png) no-repeat center;
+    background-size: cover;
+}
+
+.swiper-slide {
+    width: 65%;
+    padding: 0 1%;
+}
+
+.swiper-slide img {
+    width: 100%;
+}
+
+.swiper-pagination {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.swiper-pagination-bullet {
+    width: 32px;
+    height: 32px;
+    margin-right: 20px;
+    text-align: center;
+    line-height: 32px;
+    color: rgba(251, 186, 93, 1);
+    background: rgba(65, 32, 63, 1);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet:last-of-type {
+    margin: 0;
+}
+
+.swiper-pagination-bullet-active {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    color: rgba(65, 32, 63, 1);
+    background: url(img/shouye_nvsheng_huangseb.png) center no-repeat;
+    background-size: 40px 42px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: url(img/footer.png) center bottom no-repeat;
+    background-size: contain;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            margin: 40px;
+            width: 600px;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        #box div {
+            height: 10px;
+            background: url(1.jpg) no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="box">
+
+    </div>
+    <script src="TweenMax.min.js"></script>
+    <script>
+        var oBox = document.querySelector('#box');
+        for (var i = 0; i < 50; i++) {
+            var div = document.createElement('div');
+            div.className = "pic";
+            div.style.backgroundPositionY = -i * 10 + 'px';
+            oBox.appendChild(div);
+        }
+        var aPic = document.querySelectorAll('.pic');
+        var t = new TimelineMax();
+        t.set('.pic', {
+            transformPerspective: 3000,
+            transformOrigin: "top"
+        });
+        t.staggerTo('.pic', 1, {
+            rotationX: 92,
+            onComplete: function() {
+                this.target.style.backgroundImage = "url(2.jpg)";
+                t.staggerTo('.pic', 1, {
+                    rotationX: 0,
+                }, 0.02);
+
+            }
+        }, 0.02)
+    </script>
+</body>
+
+</html>

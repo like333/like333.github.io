@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0
+        }
+        
+        div {
+            width: 90px;
+            height: 134px;
+            border: 1px solid black;
+            border-radius: 6px;
+            background: url(img/back.jpg) no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="TweenMax.min.js"></script>
+    <script>
+        function pos(obj) {
+            var t = (document.documentElement.clientHeight - 134) / 2;
+            var l = (document.documentElement.clientWidth - 90) / 2;
+            obj.style.top = t + 'px';
+            obj.style.left = l + 'px';
+
+        }
+        for (var i = 0; i < 45; i++) {
+            var div = document.createElement('div');
+            pos(div);
+            document.body.appendChild(div);
+        }
+        var aDiv = document.querySelectorAll('div');
+        window.onresize = function() {
+            for (var i = 0; i < 45; i++) {
+                pos(aDiv[i]);
+            }
+        }
+        for (var i = 0; i < 45; i++) {
+            aDiv[i].index = i;
+        }
+        var t = new TimelineMax();
+        /* */
+        t.staggerTo('div', 0.05, {
+                cycle: {
+                    rotationZ: function(i) {
+                        return 6 * (i - 46 / 2);
+                    },
+                    x: function(i) {
+                        var deg = 6 * (i - 46 / 2);
+                        if (deg > 90) {
+                            return Math.cos((deg - 90) * Math.PI / 180) * 300;
+                        } else {
+                            return Math.sin(deg * Math.PI / 180) * 300;
+                        }
+                    },
+                    y: function(i) {
+                        var deg = 6 * (i - 46 / 2);
+                        if (deg <= 0) {
+                            deg = Math.abs(deg);
+                            if (deg > 90) {
+                                return Math.sin((deg - 90) * Math.PI / 180) * 300;
+                            } else {
+                                return -Math.cos(deg * Math.PI / 180) * 300;
+                            }
+                        } else {
+                            if (deg < 90) {
+                                return -Math.cos(deg * Math.PI / 180) * 300;
+                            } else {
+                                return Math.sin((deg - 90) * Math.PI / 180) * 300;
+                            }
+                        }
+                    },
+
+                },
+                onComplete: function() {
+                    if (this.target.index == 44) {
+                        t.set('div', {
+                            transformPerspective: 500,
+
+                        })
+                        let num = 0;
+                        let n = 1;
+
+                        const dut = 0.01;
+                        var timer = setInterval(() => {
+                            num += n;
+                            if (num == 0) {
+                                clearInterval(timer);
+                                t.staggerTo('div', 0.03, {
+                                    x: 0,
+                                    y: 0,
+                                    onComplete: function() {
+                                        t.staggerTo('div', 0.02, {
+                                            cycle: {
+                                                x: function(i) {
+                                                    return (i - 23) * 30
+                                                }
+                                            },
+                                            y: -160,
+                                        }, 0.03);
+                                    }
+                                })
+                            }
+                            if (num == 44) {
+                                n = -1
+                            }
+                            if (num > 0) {
+                                t.to(aDiv[num - 1], dut, {
+                                    rotationY: 60,
+                                    onComplete: function() {
+                                        t.to(this.target, dut, {
+                                            rotationY: 0,
+                                        })
+                                    }
+                                }, dut * 2)
+                            }
+                            t.to(aDiv[num], dut, {
+                                rotationY: 90,
+                                onComplete: function() {
+                                    t.to(this.target, dut, {
+                                        rotationY: 0,
+                                    })
+                                }
+                            }, dut)
+                            if (num < 44) {
+                                t.to(aDiv[num + 1], dut, {
+                                    rotationY: 60,
+                                    onComplete: function() {
+                                        t.to(this.target, dut, {
+                                            rotationY: 0,
+                                        })
+                                    }
+                                }, )
+                            }
+                        }, dut * 4000)
+                    }
+                }
+            },
+            0.05);
+    </script>
+</body>
+
+</html>
