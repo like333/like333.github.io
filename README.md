@@ -20,5 +20,9 @@
 - [x] 19.[自定义滑动区域](http://like333.github.io/移动端/自定义滑动区域.html)
 - [x] 20.[带声音的导航](http://like333.github.io/带声音的导航/带声音的导航.html)
 - [x] 21.[自制播放器](http://like333.github.io/自制播放器/自制播放器.html)
+- [x] 22.[swiper-demo](http://like333.github.io/swiper-demo/first.html)
+- [x] 23.[twwwnMax-demo-百叶窗](http://like333.github.io/tweenMax-demo/baiyechuang.html)
+- [x] 24.[tweenMax-demo-洗牌](http://like333.github.io/tweenMax-demo/xipai.html)
+- [x] 25.[tweenMax-demo-折叠](http://like333.github.io/tweenMax-demo/zhezhi.html)
 
 
