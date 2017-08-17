@@ -8,7 +8,7 @@
 - [x] 8.[数据弹出层](http://like333.github.io/BOM/数据加弹出层提示/index.html)
 - [x] 9.[商品选择](http://like333.github.io/DOM/商品选择.html)
 - [x] 10.[树状菜单](http://like333.github.io/DOM/树状菜单.html)
-- [x] 11.[tip提示层](http://like333.github.io/DOM/tip提示.html)
+- [x] 11.[tip提示层](http://like333.github.io/DOM/tips提示.html)
 - [x] 12.[表格操作](http://like333.github.io/DOM/表单表格数据操作.html)
 - [x] 13.[照片墙](http://like333.github.io/js应用/照片墙.html)
 - [x] 14.[mac菜单](http://like333.github.io/js应用/苹果菜单.html)
@@ -18,5 +18,7 @@
 - [x] 18.[相册](http://like333.github.io/移动端/相册/index.html)
 - [x] 18.[网易严选](http://like333.github.io/移动端/网易严选/index.html)
 - [x] 19.[自定义滑动区域](http://like333.github.io/移动端/自定义滑动区域.html)
+- [x] 20.[带声音的导航](http://like333.github.io/带声音的导航/带声音的导航.html)
+- [x] 21.[自制播放器](http://like333.github.io/自制播放器/自制播放器.html)
 
 
