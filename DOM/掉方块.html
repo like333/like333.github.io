@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div {
+				background: red;
+				height: 50px;
+				top: 0px;
+				width: 50px;
+				position: absolute;
+				left: 50px;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				for(var i = 0; i < 15; i++) {
+					var div = document.createElement('div');
+					div.setAttribute('style', 'left:' + 60 * i + 'px');
+					document.body.appendChild(div);
+				}
+				var aDiv = document.getElementsByTagName('div');
+				var timer1 = timer = null;
+				for(var i = 0; i < aDiv.length; i++) {
+					aDiv[i].index = i;
+					aDiv[i].onclick = function() {
+						var n = this.index;
+						if(this.previousElementSibling) {
+							var m = n;
+							setTimeout(function() {
+								timer2 = setInterval(function() {
+									move(aDiv[m - 1]);
+									if(m - 1 == 0) {
+										clearInterval(timer2);
+									} else m--;
+								}, 100)
+
+							}, 100)
+						}
+						timer1 = setInterval(function() {
+							move(aDiv[n]);
+							n++;
+							if(n == aDiv.length) {
+								clearInterval(timer1);
+							}
+						}, 100)
+
+					}
+				}
+
+				function move(obj) {
+					obj.timer = setInterval(function() {
+						if(parseInt(getComputedStyle(obj).top) >= 400) {
+							obj.style.top = '400px';
+							clearInterval(obj.timer);
+						}
+						obj.style.top = parseInt(getComputedStyle(obj).top) + 30 + 'px';
+					}, 50)
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>

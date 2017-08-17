@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#div1{width: 200px;height: 10px; position: relative; background: #909090;  border-radius: 10px;}
+			#div2{position: absolute; cursor: default; z-index: 1;; width: 20px; height: 20px; background: #1E90FF; border-radius: 50%;top: -5px; left: 0;}
+			#div3{background:red; border-radius: 10px; height: 100%; width:0px; position: absolute;}
+			#span1{position: absolute;top: 20px;}
+		</style>
+		<script>
+			window.onload=function(){
+				
+				var oDiv1=document.getElementById('div1');
+				var oDiv2=document.getElementById('div2');
+				var oDiv3=document.getElementById('div3');
+				var oSpan=document.getElementById('span1');
+				
+				oDiv2.onmousedown=function(ev){
+					var ev=ev||event;
+					
+					var disX=ev.clientX-oDiv2.offsetLeft;
+					
+					document.onmousemove=function(ev){
+						var ev=ev||event;
+						
+						var L=ev.clientX-disX;
+						if(L<0){L=0;}
+						if(L>oDiv1.offsetWidth-oDiv2.offsetWidth){
+							L=oDiv1.offsetWidth-oDiv2.offsetWidth;
+						}
+						oDiv2.style.left=L+'px';
+						oDiv3.style.width=L+oDiv2.offsetWidth+'px';
+						oSpan.innerHTML=L;
+					}
+					
+					document.onmouseup=function(){
+						document.onmousemove=null;
+						
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1">
+			<div id="div2"></div>
+			<div id="div3"></div>
+			<span id="span1">d</span>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no" />
+		<title></title>
+		<script>
+			(function(){
+				setRem();
+				window.addEventListener('orientation'in window?"deviceorientation":"resize",setRem);
+				function setRem(){
+					var html = document.documentElement,
+					width = html.clientWidth;
+					html.style.fontSize = width/16+'px';
+				}
+				
+			})();
+		</script>
+		<style>
+			body,html{
+				margin: 0;
+				height: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			a{
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+			}
+			ul{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			header{
+				height: 2rem;
+				background: #000;
+				line-height: 2rem;
+				text-align: center;
+				color: white;
+				font-size: .8rem;
+				position: relative;
+			}
+			#box ,.imgWrap{
+				position: absolute;
+				top: 2rem;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				overflow: hidden;
+			}
+			#list{
+				overflow: hidden;
+			}
+			#list li{
+				float: left;
+				width: 7rem;
+				height: 7rem;
+				margin: .5rem;
+				background: url(pics/loadingImg.gif) center center no-repeat;
+			}
+			#list img{
+				display: block;
+				width: 100%;
+				height: 100%;
+				opacity: 0;
+				transition: 1s;
+			}
+			#imgPage{
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				background: #ddd;
+				-webkit-transform: scale(0);
+				transform: scale(0);
+			}
+			#bigImg{
+				position: absolute;
+				left: 3rem;
+				top: 50%;
+				margin-top: -5rem;
+				width: 10rem;
+				height: 10rem;
+			}
+			header a{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 2rem;
+				height: 2rem;
+				line-height: 2rem;
+				text-align: center;
+				color: #fff;
+				text-decoration: none;
+				font-size: .7rem;
+			}
+			
+			nav{
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 2rem;
+				background: #fff;
+			}
+			nav a{
+				float: left;
+				width: 4rem;
+				font-size: .6rem;
+				text-align: center;
+				color: #000;
+				line-height: 2rem;
+				text-decoration: none;
+			}
+			#inner{
+				position: relative;
+			}
+			#inner footer{
+				position: absolute;
+				left: 0;
+				width: 100%;
+				bottom: -2rem;
+				height: 2rem;
+				line-height: 2rem;
+				font-size: .6rem;
+				text-align: center;
+				opacity: 0;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<header>相册实例</header>
+		<div id="box">
+			<div id="inner">
+				<ul id="list">
+			
+				</ul>
+				<footer id="footer">加载更多</footer>
+			</div>
+		</div>
+		<section id="imgPage">
+			<header>预览<a id="backBtn" href="javascript:;">返回</a></header>
+			<div class="imgWrap">
+				<img src="pics/1.jpg" id="bigImg"/>
+				<nav id="navs">
+					<a href="javascript:;">逆时针90</a>
+					<a href="javascript:;">顺时针90</a>
+					<a href="javascript:;">放大</a>
+					<a href="javascript:;">缩小</a>
+				</nav>
+			</div>
+		</section>
+		
+		<!--js-->
+		<script src="../transform/tween2.js"></script>
+		<script>
+			
+			//阻止默认事件
+			document.addEventListener('touchstart',function(ev){
+				ev.preventDefault();
+			});
+			
+			var bigImg = document.querySelector('#bigImg');
+			var backBtn = document.querySelector('#backBtn');
+			
+			var box = document.querySelector('#box');
+			var imgPage = document.querySelector('#imgPage');
+			var nav = document.querySelector('#navs');
+			var navA = nav.querySelectorAll('a');
+			var back = document.documentElement.clientWidth/8;
+			//函数调用
+			(function(){
+				
+				var list = document.querySelector('#list');
+				var inner = document.querySelector('#inner');
+				var footer = document.querySelector('#footer');
+				var aLi = list.children;
+				var isEnd = false;
+				
+				
+				var dataImg = [];
+				var len = 8;//一次加载8张图
+				var begin = 0;//从第几张开始加载
+				for(var i = 0; i<52; i++){
+					dataImg.push("pics/"+i%16+".jpg");
+				}
+				console.log(dataImg);
+				setBig();
+				setScroll();
+				creatLi();
+				backBtn.addEventListener('touchend',function(){
+					css(imgPage,'scale',0);
+				});
+				function creatLi(){//请求数据加载li
+					
+					if(begin >= dataImg.length){
+						footer.innerHTML = '我是有底线的';
+						setTimeout(function(){
+							footer.style.opacity = 0;
+							MTween({
+								el:inner,
+								target:{translateY:box.clientHeight-inner.offsetHeight},
+								time:1000,
+								type:'easeBoth'
+							},2000)
+						})
+						return;
+					}else{
+							footer.innerHTML = '加载更多';
+					}
+					var end = begin + len;
+					end = end>dataImg.length?dataImg.length:end;
+					for(var i=begin; i<end; i++){
+						var li = document.createElement('li');
+						li.src = dataImg[i];
+						li.isLoad = true;
+						li.addEventListener('touchstart',function(){
+							this.isMove = false;
+						})
+						li.addEventListener('touchmove',function(){
+							this.isMove = true;
+						})
+						li.addEventListener('touchend',function(e){
+							if(this.isMove){
+								return;
+							}else{
+								css(bigImg,'scale',100);
+								css(bigImg,'rotate',0);
+								bigImg.src =this.children[0].src;
+								css(imgPage,'scale',100);
+							}
+							
+						});
+						
+						list.appendChild(li);
+					}
+					creatImg();
+					document.querySelector('#scrollBar').style.opacity = 0;
+				}
+				
+				function creatImg(){//li进入可视区之后，创建图片
+					var boxRect = box.getBoundingClientRect()
+					var bottom = boxRect.top + boxRect.height;
+					
+					for(var i=0; i < aLi.length; i++){
+						var top = aLi[i].getBoundingClientRect().top;
+						
+						if(top < bottom && aLi[i].isLoad){//当前li进入可视区
+							aLi[i].isLoad = false;
+							showImg(aLi[i]);
+						}
+					}
+				}
+				
+				function showImg(li){//创建图片屏显示
+					var img = new Image();
+					img.src = li.src;
+					img.onload = function(){
+						li.appendChild(img);
+						//图片未渲染完成，transition不起作用
+						setTimeout(function(){
+							img.style.opacity = 1;
+						},30)
+					}
+				}
+				
+				function setScroll(){
+					mScroll({
+						el:box,
+						offScrollBar:false,
+						start:function(e){//手指按下要执行的函数
+							var innerTop =Math.round(css(inner,'translateY')) - 5;
+							//console.log(innerTop);
+							var minTop = box.clientHeight-inner.offsetHeight;
+							//console.log(minTop);
+							
+							if(innerTop <= minTop){
+								//console.log('用户是在底部进行拖拽')
+								footer.style.opacity = 1;
+								isEnd = true;
+							}else{
+								footer.style.opacity = 0;
+								isEnd = false;
+							}
+						},
+						move:function(e){//手指抬起要执行的函数
+							creatImg();
+						},
+						end:function(e){//手指抬起要执行的函数
+							
+							var innerTop =Math.round(css(inner,'translateY')) - 5;
+							//console.log(innerTop);
+							var minTop = box.clientHeight-inner.offsetHeight;
+							//console.log(minTop);
+							if(isEnd && innerTop <= minTop){//到达底部，并且是往下滑动
+								clearInterval(inner.timer);//不再进行回弹
+								begin += len;
+								creatLi();
+								
+							}
+							isEnd = false;
+						},
+						over:function(e){//手指抬起要执行的函数
+							
+						},
+					});
+				}
+			})();
+			
+			function setBig(){//放大图片缩放旋转查看
+				css(imgPage,'scale',0);
+				
+				var startRotation = 0,
+				    startScale = 0
+				    maxScale = 1.6,
+				    minScale = 0.5;
+				
+				 setGesTure({
+					el:bigImg,
+					start:function(e){
+						startRotation = css(this,"rotate");
+						startScale = css(this,'scale')/100;
+					},
+					change:function(e){
+						var scale = startScale * e.scale;
+						if(scale > maxScale){
+							scale = maxScale;
+						}else if(scale < minScale){
+							scale = minScale;
+						}
+						
+						css(this,'rotate',startRotation+e.rotation);
+						css(this,'scale',scale*100);
+						//this.innerHTML = e.rotation;
+					},
+					end:function (e){
+						var deg = css(this,'rotate');
+						deg = Math.round(deg/90);
+						deg = deg*90;
+						MTween({
+							el:this,
+							target:{rotate:deg},
+							time:300,
+							type:"easeBoth"
+						});
+					}
+				});
+				
+				
+				navA[2].addEventListener('touchend',function(){
+					
+					var scale = css(bigImg,'scale');
+					scale += 10;
+					scale = scale/100;
+					if(scale>maxScale){
+						scale = maxScale;
+					}
+					MTween({
+						el:bigImg,
+						target:{scale:scale*100},
+						time:300,
+						type:'easeBoth'
+					});
+				});
+				navA[3].addEventListener('touchend',function(){
+					var scale = css(bigImg,'scale');
+					scale -= 10;
+					scale = scale/100;
+					if(scale<minScale){
+						scale = minScale;
+					}
+					MTween({
+						el:bigImg,
+						target:{scale:scale*100},
+						time:300,
+						type:'easeBoth'
+					});
+				})
+				navA[0].addEventListener('touchend',function(){
+					var deg = css(bigImg,'rotate');
+						deg = Math.round(deg/90)-1;
+						deg = deg*90;
+						MTween({
+							el:bigImg,
+							target:{rotate:deg},
+							time:300,
+							type:"easeBoth"
+						});
+				})
+				navA[1].addEventListener('touchend',function(){
+					var deg = css(bigImg,'rotate');
+						deg = Math.round(deg/90)+1;
+						deg = deg*90;
+						MTween({
+							el:bigImg,
+							target:{rotate:deg},
+							time:300,
+							type:"easeBoth"
+						});
+				})
+			}
+			
+			function getDis(p1,p2){//得到缩放距离
+				var x = p2.x-p1.x;
+				var y = p2.y-p1.y;
+				return Math.sqrt(x*x+y*y);
+			}
+			
+			function getDeg(p1,p2){//得到角度
+				var x = p2.x - p1.x;
+				var y = p2.y - p1.y;
+				return Math.atan2(y,x)*180/Math.PI;
+			}
+			
+			function setGesTure(init){//手指缩放，旋转
+				var el = init.el,
+					isGesture = false,
+					startPoint = [];
+				if(!el){
+					return ;
+				}
+				
+				el.addEventListener('touchstart',function(e){
+					if(e.touches.length >= 2){
+						isGesture = true;
+						
+						startPoint[0] = {x:e.touches[0].pageX,y:e.touches[0].pageY};
+						startPoint[1] = {x:e.touches[1].pageX,y:e.touches[1].pageY};
+						
+						init.start&&init.start.call(el,e);
+					}
+				});
+				el.addEventListener('touchmove',function(e){
+					if(isGesture && e.touches.length >= 2){
+						
+						
+						var  nowPoint = [];
+						nowPoint[0] = {x:e.touches[0].pageX,y:e.touches[0].pageY};
+						nowPoint[1] = {x:e.touches[1].pageX,y:e.touches[1].pageY};
+						
+						//scale
+						var  startDis = getDis(startPoint[0], startPoint[1]);
+						var nowDis = getDis(nowPoint[0] ,nowPoint[1]);
+						e.scale = nowDis / startDis;
+						
+						//rotate
+						var startDeg = getDeg(startPoint[0], startPoint[1]);
+						var nowDeg = getDeg(nowPoint[0], nowPoint[1]);
+						e.rotation = nowDeg - startDeg;
+						
+						init.change&&init.change.call(el,e);
+					}
+				});
+				el.addEventListener('touchend',function(e){
+					if(isGesture){
+						if(e.touches.length< 2||e.targetTouches.length<1){
+							isGesture = false;
+							init.end&&init.end.call(el,e);
+						}
+					}
+				});
+			}
+			
+			function mScroll(init){//滑动屏幕
+				if(!init.el){
+					return;
+				}
+				var inner = init.el.children[0];
+				inner.style.minHeight = '100%';
+				
+				if(!init.offScrollBar){//滚动条控制
+					var scrollBar = document.createElement('div');
+					scrollBar.style.cssText = 'width: 4px;background:rgba(23,120,240,.5);position:absolute;top: 0px;right: 0;border-radius: 6px; transition:1s; opacity:0;'
+					scrollBar.id = 'scrollBar';
+					init.el.appendChild(scrollBar);
+					var maxH =  init.el.clientHeight-inner.offsetHeight,
+					scale = init.el.clientHeight/inner.offsetHeight ; //滚动条滚动比例
+				}
+				var wrap = init.el;
+				var sPoint = 0,sEl = 0,transY = 0,
+				lastDis = 0,//间隔的距离
+				lastY = 0,//上次的距离
+				lastTime = 0,//最后一次的时间
+				disTime = 0;//间隔时间
+				var maxH = wrap.clientHeight - inner.offsetHeight;
+				
+				css(list,"translateZ",0.01);
+				inner.addEventListener('touchstart',function(ev){
+					
+					maxH = init.el.clientHeight - inner.offsetHeight;
+					
+					if(!init.offScrollBar){//滚动条控制
+						if(maxH>=0){
+							scrollBar.style.display = 'none';
+						}else{
+							scrollBar.style.display = 'block';
+						}
+						scale = init.el.clientHeight/inner.offsetHeight ;
+						scrollBar.style.height = init.el.clientHeight*scale +'px';
+					}	
+					
+					clearInterval(inner.timer);
+					var e = ev.changedTouches[0];
+					sPoint = e.pageY;
+					sEl = css(inner,"translateY");
+					lastY = sEl;
+					lastIime = new Date().getTime();
+					lastDis = disTime = 0;
+					
+					(!init.offScrollBar)&&(scrollBar.style.opacity = 1);
+					init.start&&init.start.call(box,e);
+				})
+				inner.addEventListener('touchmove',function(ev){
+					var nowTime = new Date().getTime();
+					var e = ev.changedTouches[0];
+					var disY = e.pageY - sPoint;
+					var transY = sEl + disY;
+					if(transY > back){
+						transY = back
+					} else if(transY < maxH -back){
+						transY = maxH - back;
+					}
+					css(inner,'translateY',transY);
+					(!init.offScrollBar)&&( css(scrollBar,'translateY',-transY*scale) );//滚动条移动距离
+					lastDis = transY - lastY;
+					lastY = transY;
+					disTime = nowTime - lastTime;
+					lastTime = nowTime;
+					
+					init.move&&init.move.call(box,e);
+				})
+				
+				inner.addEventListener('touchend',function(e){
+					var type = 'easeOut'
+					var speed = Math.round(lastDis / disTime * 10);
+					speed = disTime<=0?0:speed;
+					var target = Math.round(speed*20 + css(inner,'translateY'));//缓冲距离
+					if(target>0){
+						target = 0;
+						type = "backOut"
+					}else if(target < maxH){
+						target = maxH;
+						type = "backOut";
+					}
+					MTween({
+						el:inner,
+						target:{
+							translateY:target,
+						},
+						time:Math.round(Math.abs(target - css(inner,"translateY"))*2),
+						type:type,
+						callBack:function(){
+							(!init.offScrollBar)&&(scrollBar.style.opacity = 0);
+							init.over&&init.over.call(box,e);
+						},
+						callIn:function(){
+							if(!init.offScrollBar){
+								var transY = css(inner,'translateY');
+								css(scrollBar,'translateY',-transY*scale);
+							}
+							init.move&&init.move.call(box,e);
+						}
+					});
+					
+					init.end&&init.end.call(box,e);
+				})
+				
+			}
+		
+		</script>
+	</body>
+</html>

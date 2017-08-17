@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul,p{margin: 0;padding: 0;font-family: "微软雅黑";}
+			li{list-style: none;padding: 10px 0;border-bottom: 1px #ddd dashed;}
+			#box{width:700px;border:1px #06B1DA solid;}
+			#selectBox{background: #F7F7F7;height: 50px;line-height: 50px;padding-left: 10px;}
+			#selectBox a{cursor: pointer; display:none;margin:0 5px;border: 1px #19C2FF solid;padding: 5px;font-size:12px;color:#19C2FF;text-decoration: none;}
+			#selectBox a span{padding:0 5px;background:#06B1DA;color: white;margin-left: 5px;}
+			li:last-child{border: none;}
+			li a{text-decoration: none;color: black;padding: 10px;font-family: "微软雅黑";font-size: 14px;}
+			li a:hover,li .active{color: #19C2FF;}
+			li a:first-child{color: #aaa;cursor: default;}
+			li a:first-child:hover{color: #aaa;}
+		</style>
+			<script>
+			window.onload = function() {
+				var data = [
+					['品牌：', '苹果', '小米', '荣耀', '魅族', '华为', '三星', 'oppo', 'vivo', '乐视', '360', '中兴', '索尼'],
+					['尺寸：', '3.0英寸以下', '3.0-3.9英寸', '4.0-4.5英寸', '5.0-5.5英寸', '6.0英寸以上'],
+					['系统：', '安卓（Andriod）', '苹果(IOS)', '微软(WindowsPhone)', '无', '其他'],
+					['网络：', '联通3G', '双卡单4G', '双卡双4G', '联通4G', '电信4G', '移动4G']
+				];
+				var sel = document.getElementById('selectBox');
+				var list = document.getElementById('list');
+				for(var i = 0; i < data.length; i++) {
+		
+					var li = document.createElement('li');
+		
+					for(var j = 0; j < data[i].length; j++) {
+						var a = document.createElement('a');
+						a.setAttribute('href', 'javascript:;');
+						a.innerHTML = data[i][j];
+						li.appendChild(a);
+					}
+					list.appendChild(li);
+					var selA = document.createElement('a');
+					sel.children[0].appendChild(selA);
+				}
+		
+				function selGoods(obj, num) {
+		
+					for(var i = 1; i < obj.children.length; i++) {
+						obj.children[i].index = i;
+						var last = null;
+						obj.children[i].onclick = function() {
+							sel.children[0].children[num].innerHTML = this.innerHTML + '<span>×</span>';
+							sel.children[0].children[num].style.display = 'inline';
+							if(last) { this.parentNode.insertBefore(last, obj.children[last.index]); }
+							last = this;
+							this.remove();
+							sel.children[0].children[num].onclick = function() {
+								obj.insertBefore(last, obj.children[last.index]);
+								this.style.display = '';
+							}
+						}
+					}
+				}
+		
+				for(var i = 0; i < list.children.length; i++) {
+					selGoods(list.children[i], i);
+				}
+			}
+		</script>
+	</head>
+	
+
+	<body>
+		<div id="box">
+		<div id="selectBox">
+			<p>你的选择：</p>
+		</div>
+		<ul id="list">
+			
+		</ul>
+		</div>
+	</body>
+
+</html>

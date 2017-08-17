@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#pro { width: 300px; height: 22px; background: #eee; overflow:hidden ;position: relative;}
+			#proChild { position: absolute; width: 30px; height: 22px; background: red; left: 0; top: 0;}
+			#voi { width: 300px; height: 12px; background: #eee; overflow:hidden ;position: relative; margin-top: 10px;}
+			#voiChild { position: absolute; width: 30px; height: 12px; background: lightseagreen; left: 270px; top: 0;}
+		</style>
+		<script>
+			window.onload = function(){
+				var oV = document.getElementById('v1');
+				var oBtn = document.getElementsByTagName('input');
+				var oDiv1 = document.getElementById('pro');
+				var oDiv2 = document.getElementById('proChild');
+				var oDiv3 = document.getElementById('voi');
+				var oDiv4 = document.getElementById('voiChild');
+				
+				
+				var timer = null;
+				
+				oBtn[0].onclick = function(){
+					if(oV.paused){
+						oV.play();
+						nowTime();
+						timer = setInterval(nowTime,1000);
+						this.value = '暂停';
+					}
+					else{
+						oV.pause();
+						this.value = '播放';
+						clearInterval(timer);
+					}
+				}
+				
+				function nowTime(){
+					
+					oBtn[1].value = getTime( oV.currentTime);
+					
+					oDiv2.style.left = oV.currentTime/oV.duration * (oDiv1.offsetWidth -oDiv2.offsetWidth) + 'px';
+				}
+				
+				oBtn[2].value = getTime( oV.duration);
+				
+				function getTime(iNum){
+					
+					iNum = parseInt( iNum );
+					
+					var iH = toZero(Math.floor( iNum/3600 ));
+					var iM = toZero(Math.floor( iNum%3600/60 ));
+					var iS= toZero(Math.floor( iNum%60 ));
+					
+					return iH+':'+iM+':'+iS;
+				}
+				
+				function toZero(num){
+					if(num<10){
+						return '0' + num;
+					}else{
+						return '' + num;
+					}
+				}
+				oBtn[3].onclick = function(){
+					
+					if(oV.muted){
+						this.value = '静音';
+						oV.muted = false;
+					}else{
+						oV.muted = true;
+						this.value = '取消静音'
+					}
+				}
+				oBtn[4].onclick = function(){
+					
+					oV.mozRequestFullScreen();
+				}
+				
+				oDiv2.onmousedown = function(ev){
+					var ev = ev || window.event;
+					var disX =ev.clientX -oDiv2.offsetLeft;
+					
+					document.onmousemove = function(ev){
+						var ev = ev || window.event;
+						
+						var X = ev.clientX - disX ;
+						
+						if( X < 0){
+							X = 0;
+						}else if ( X > oDiv1.offsetWidth -oDiv2.offsetWidth){
+							 X = oDiv1.offsetWidth -oDiv2.offsetWidth;
+						}
+						oDiv2.style.left = X + 'px';
+						
+						var scale = X/( oDiv1.offsetWidth -oDiv2.offsetWidth );
+						//if(scale == 1){oDiv2.style.left = 0; }
+						oV.currentTime = scale*oV.duration;
+						nowTime();
+					}
+					document.onmouseup = function(ev){
+						document.onmousemove = null;
+						document.onmouseup = null;
+					}
+					
+					return false;
+				}
+				
+				oDiv4.onmousedown = function(ev){
+					var disX =ev.clientX -oDiv4.offsetLeft;
+					document.onmousemove = function(ev){
+						var X = ev.clientX - disX ;
+						if( X < 0){
+							X = 0;
+						}else if ( X > oDiv3.offsetWidth -oDiv4.offsetWidth){
+							 X = oDiv3.offsetWidth -oDiv4.offsetWidth;
+						}
+						oDiv4.style.left = X + 'px';
+					}
+					document.onmouseup = function(ev){
+						document.onmousemove = null;
+						document.onmouseup = null;
+					}
+					
+					return false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<video id="v1" >
+			<source src="Intermission-Walk-in.ogv"></source>
+			<source src="Intermission-Walk-in_512kb.mp4"></source>
+		</video>
+		<br />
+		<input type="button" name="" id="" value="播放" />
+		<input type="button" name="" id="" value="00:00:00" />
+		<input type="button" name="" id="" value="00:00:00" />
+		<input type="button" name="" id="" value="静音" />
+		<input type="button" name="" id="" value="全屏" />
+		<div id="pro">
+			<div id="proChild">
+				
+			</div>
+		</div>
+		<div id="voi">
+			<div id="voiChild">
+				
+			</div>
+		</div>
+	</body>
+</html>

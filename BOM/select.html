@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul,input{margin: 0;padding: 0;}
+			li{list-style: none;}
+			div{position: relative;}
+			input,ul{position: absolute;}
+			input{top: 0;height: 18px;width:200px;border:1px solid orange;padding: 5px 0 5px 5px;}
+			ul{top:30px;border:1px solid orange; display: none;}
+			li{width: 200px;padding-left: 5px;height: 32px;line-height: 32px;}
+			ul .active{background: orange; color: white;}
+		</style>
+		<script>
+			window.onload=function(){
+				var aFonts=['宋体','黑体','楷体','微软雅黑','新宋体','仿宋'];
+				var ul=document.getElementById('fonts');
+				for(var i=0;i<aFonts.length;i++){
+					var li=document.createElement('li');
+					li.innerHTML=aFonts[i];
+					ul.appendChild(li);
+				}
+				
+				var oInput=document.getElementsByTagName('input')[0];
+				var aLi=ul.children;
+				var last=null;
+//				console.log(aLi.length);
+				oInput.onclick=function(ev){
+					var ev=ev||event;
+					ul.style.display='block';
+					ev.cancelBubble = true;
+				}
+				function out(){
+						this.className='';
+					}
+				for(var i=0;i<aLi.length;i++){
+					aLi[i].onmouseover=function(){
+						this.className='active';
+					}
+					aLi[i].onmouseout=out;
+					aLi[i].onclick=function(ev){
+						var ev=ev||event;
+						ev.cancelBubble=true;
+						if(last){
+							last.className='';
+							last.onmouseout=out;
+						}
+						oInput.value=this.innerHTML;
+						this.className='active';
+						this.onmouseout=null;
+						ul.style.display='none';
+						last=this;
+					}
+					
+				}
+					document.onclick=function(){
+					ul.style.display='none';
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" />
+		<ul id="fonts"></ul>
+		</div>
+		
+	</body>
+</html>

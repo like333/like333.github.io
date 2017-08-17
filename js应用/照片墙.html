@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* { margin: 0; padding: 0;}
+			ul{ width: 520px; margin: 40px auto 0; overflow: hidden;}
+			li {float: left; list-style: none; width: 160px; margin: 10px 10px 0 0; border: 1px #ccc solid;   height: 120px; overflow: hidden;}
+			img{ width: 160px; }
+		</style>
+		
+		<script>
+			window.onload = function(){
+				
+				var oUl = document.getElementById('ul1');
+				var aLi = oUl.getElementsByTagName('li');
+				
+				var oBtn = document.getElementById('btn');
+				var pos =[];//存放li的位置信息
+				var l = aLi.length;
+				var index = 0;//存放li的优先级
+				
+				for(var i = 0;i<aLi.length;i++){
+					
+					pos.push([aLi[i].offsetLeft,aLi[i].offsetTop]);
+					
+				}
+				
+				for(var i=0;i<l;i++){
+					aLi[i].index = i;
+					aLi[i].style.position = 'absolute';
+					aLi[i].style.left = pos[i][0]+'px';
+					aLi[i].style.top = pos[i][1]+'px';
+					aLi[i].style.margin = 0;
+				}
+				for(var i=0;i<l;i++){
+					
+					drag(aLi[i]);
+				}
+				
+				function drag(obj){
+					
+					var disX = 0;
+					var disY = 0;
+					
+					obj.onmousedown = function(ev){
+						
+						index++;
+						obj.style.zIndex =index++;
+						var ev = ev||window.ev;
+						
+						disX = ev.clientX - obj.offsetLeft;
+						disY = ev.clientY - obj.offsetTop;
+						
+						
+						document.onmousemove = function(ev){
+							
+							var ev = ev||window.ev;
+							
+							obj.style.left = ev.clientX - disX + 'px';
+							obj.style.top = ev.clientY - disY + 'px';
+							
+							for(var i = 0;i<l;i++){
+								aLi[i].style.border = '';
+							}
+							var nL = nearLi(obj);
+							if(nL){
+								nL.style.border = '2px solid red';
+							}
+							
+						};
+						
+						document.onmouseup = function(){
+							
+							document.onmousemove = null;
+							document.onmouseup = null;
+							
+							var nL = nearLi(obj);
+							var tmp = 0;
+							
+							if(nL){
+								obj.style.top = pos[nL.index][1] + 'px';
+								obj.style.left = pos[nL.index][0] + 'px';
+								nL.style.top = pos[obj.index][1] + 'px';
+								nL.style.left = pos[obj.index][0] + 'px';
+								
+								tmp = obj.index;
+								obj.index = nL.index;
+								nL.index = tmp;
+							}else{
+								obj.style.top = pos[obj.index][1] + 'px';
+								obj.style.left = pos[obj.index][0] + 'px';
+							}
+						}
+						
+						return false;
+					}
+				}
+			    
+			    oBtn.onclick = function(){
+					
+					var randomArr = [0,1,2,3,4,5,6,7,8];
+					randomArr.sort(function(n1,n2){
+						return Math.random()-0.5;
+					})
+					for(var i =0;i<l;i++){
+						aLi[i].style.left = pos[randomArr[i]][0] + 'px'; 
+						aLi[i].style.top = pos[randomArr[i]][1] + 'px'; 
+						
+						aLi[i].index = randomArr[i];
+					}
+				}
+				
+			    
+			    function nearLi(obj){//最近的
+			    	
+			    	var min = 9999;
+			    	var index = -1;
+			    	for(var i=0; i<l; i++){
+			    		
+						if(pz(obj,aLi[i]) && obj!=aLi[i]){
+							var c = jl(obj,aLi[i]);
+							if(c < min){
+								min = c;
+								index = i;
+							}
+						}
+					}
+			    	if(index!=-1){
+			    		return aLi[index];
+			    	}else{
+			    		return false;
+			    	}
+			    	
+			    }
+			    
+			    function jl(obj1,obj2){//勾股定理
+			    	
+			    	var a = obj1.offsetLeft-obj2.offsetLeft;
+			    	var b = obj1.offsetTop-obj2.offsetTop;
+			    	
+			    	var c = Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+			    	return c;
+			    }
+			    
+				function pz(obj1,obj2){//碰撞检测
+					
+					var L1 = obj1.offsetLeft;
+					var R1 = obj1.offsetLeft + obj1.offsetWidth;
+					var T1 = obj1.offsetTop;
+					var B1 = obj1.offsetTop + obj1.offsetHeight;
+					
+					var L2 = obj2.offsetLeft;
+					var R2 = obj2.offsetLeft + obj2.offsetWidth;
+					var T2 = obj2.offsetTop;
+					var B2 = obj2.offsetTop + obj2.offsetHeight;
+					
+					if(R1<L2 || L1>R2 || B1<T2 || T1>B2){
+						return false;
+					}else{
+						return true;
+					}
+					
+					
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<input id="btn" type="button" value="随机" />
+		<ul id="ul1">
+			<li><img src="img/1.jpg" alt="" /></li>
+			<li><img src="img/2.jpg" alt="" /></li>
+			<li><img src="img/3.jpg" alt="" /></li>
+			<li><img src="img/4.jpg" alt="" /></li>
+			<li><img src="img/5.jpg" alt="" /></li>
+			<li><img src="img/6.jpg" alt="" /></li>
+			<li><img src="img/7.jpg" alt="" /></li>
+			<li><img src="img/8.jpg" alt="" /></li>
+			<li><img src="img/9.jpg" alt="" /></li>
+		</ul>
+	</body>
+</html>

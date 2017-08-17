@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0; padding: 0;}
+			ul { width: 1000px; height: 30px;}
+			li{ list-style: none; width: 100px; height: 30px;background: red;
+			color: white;
+			text-align: center; line-height: 30px;border: 1px #4169E1 solid; float: left;}
+		</style>
+		<script>
+			window.onload = function(){
+				var aLi = document.getElementsByTagName('li');
+				var oAu = document.getElementById('au1');
+				
+				for(var i=0; i<aLi.length; i++){
+					aLi[i].onmouseover = function(){
+						var au =this.getAttribute('au');
+						oAu.src = 'http://s8.qhimg.com/share/audio/piano1/'+au+'4.mp3'
+						oAu.play();
+					}
+				}
+			}
+		</script>
+		
+	</head>
+	<body>
+		<ul id="list">
+			<li au="a">000001</li>
+			<li au="b">000002</li>
+			<li au="c">000003</li>
+			<li au="d">000004</li>
+			<li au="e">000005</li>
+			<li au="f">000006</li>
+			<li au="g">000007</li>
+		</ul>
+		<audio id="au1"></audio>
+	</body>
+</html>

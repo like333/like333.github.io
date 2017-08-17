@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<link href="css.css" rel="stylesheet" type="text/css" />
+<script src="data.js"></script>
+</head>
+
+<body>
+	<div id="container">
+		<ul id="header"></ul>
+		
+		<div id="listContent"></div>
+	</div>
+	
+	<div id="tips">
+		<span id="arrow"></span>
+        <div id="tipsContent">
+        </div>
+	</div>
+	<script>
+		var oHeader=document.getElementById('header');
+		var oList=document.getElementById('listContent');
+		var oTips=document.getElementById('tips');
+		var oArrow=document.getElementById('arrow');
+		var oTipsContent=document.getElementById('tipsContent');
+			/*初始化*/
+		
+		for(var i=0;i<data.length;i++){
+			/*header*/
+			var li=document.createElement('li');
+			li.innerHTML=data[i].name;
+			oHeader.appendChild(li);
+			var ul=document.createElement('ul');
+			ul.setAttribute('class','list');
+			/*list*/
+			for(var j=0;j<data[i].list.length;j++){
+				var li1=document.createElement('li');
+				var a=document.createElement('a');
+				var span=document.createElement('span');
+				a.setAttribute('href','javascript:;')
+				a.innerHTML=data[i].list[j].title;
+				span.setAttribute('class','date');
+				span.innerHTML=data[i].list[j].addDate;
+				li1.appendChild(a);
+				li1.appendChild(span);
+				ul.appendChild(li1);
+			}
+			oList.appendChild(ul);
+			
+			/*标题切换*/
+			var last=0;
+			oHeader.children[i].index=i;
+			oHeader.children[i].onclick=function(){
+				oHeader.children[last].className='';
+				oList.children[last].style.display='none';
+				
+				this.className='focus';
+				oList.children[this.index].style.display='block';
+				last=this.index;
+			}
+			
+
+		}
+		/*初始化*/
+		oHeader.firstElementChild.className='focus';
+		oList.lastElementChild.style.display='none';
+		/*Tips结构*/
+		var ul1=document.createElement('ul');
+		for(var m=0;m<2;m++){
+			var li2=document.createElement('li');
+			ul1.appendChild(li2);
+		}
+		oTipsContent.appendChild(ul1);
+		var h2=document.createElement('h2');
+		oTipsContent.children[0].children[0].appendChild(h2);
+		for(var n=0;n<6;n++){
+			var span=document.createElement('span');
+			span.setAttribute('class','col');
+			oTipsContent.children[0].children[1].appendChild(span);
+		}
+		
+		var aSpan=oTipsContent.getElementsByTagName('span');
+		var oH2=oTipsContent.getElementsByTagName('h2')[0];
+		var aUl=oList.children;
+			/*鼠标移入*/
+			for(var i=0;i<data.length;i++){
+				aUl[i].index=i;
+				for(var j=0;j<data[i].list.length;j++){
+				var oLi=oList.children[i].children;
+				oLi[j].children[0].index=j;
+				var oArrowTop=oArrow.currentStyle?parseInt(oArrow.currentStyle.top):parseInt(getComputedStyle(oArrow).top);
+				oLi[j].children[0].onmouseover=function(){
+					oTips.style.display='block';
+					
+					var tipH=oTips.offsetHeight;
+					var aB=document.documentElement.clientHeight-this.parentNode.offsetTop;
+					if(tipH>aB){
+						oArrow.style.top=oArrowTop+tipH-aB+'px';
+					}else{
+						oArrow.style.top=oArrowTop+'px';
+					}
+					oTips.style.top=this.parentNode.offsetTop-oArrow.offsetTop+'px';
+					oTips.style.left=this.parentNode.offsetLeft+this.offsetWidth+10+'px';
+					//如果tip的高度大于list a到可视窗底部的距离。
+					
+//					console.log(tipH);
+//					console.log(aB);
+					
+					oH2.innerHTML=data[this.parentNode.parentNode.index].list[this.index].company;
+					aSpan[0].innerHTML='<b>职位：</b>'+data[this.parentNode.parentNode.index].list[this.index].position;
+					aSpan[1].innerHTML='<b>招聘人数:</b>'+data[this.parentNode.parentNode.index].list[this.index].recruitingNumbers;
+					aSpan[2].innerHTML='<b>工作地点：</b>'+data[this.parentNode.parentNode.index].list[this.index].workingLocation;
+					aSpan[3].innerHTML='<b>工作经历:</b>'+data[this.parentNode.parentNode.index].list[this.index].workExperience;
+					aSpan[4].innerHTML='<b>学历：</b>'+data[this.parentNode.parentNode.index].list[this.index].education;
+					aSpan[5].innerHTML='<b>薪资：</b>'+data[this.parentNode.parentNode.index].list[this.index].wage;
+				}
+				
+				oLi[j].children[0].onmouseout=function(){
+					oTips.style.display='none';
+				}
+			}
+			
+			}
+		
+	</script>
+</body>
+</html>

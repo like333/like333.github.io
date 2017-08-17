@@ -1,0 +1,44 @@
+
+#box {
+	overflow: hidden;
+	width: 700px;
+	height: 700px;
+	top: 60px;
+	position: relative;
+	background:  url(bg.png) repeat-y;
+	margin: 0 auto;
+}
+h2{
+	background: url(title.png) center no-repeat;
+	height: 48px;
+	overflow: hidden;
+	margin: 37px 0 33px 0;
+}
+
+#main{width: 460px;margin: 0 auto;}
+#form{padding:20px 0 20px 26px;margin-bottom:27px;border-radius:10px;background: white;}
+#main #form table tr{height:40px;}
+#main #form tr td:first-child{width: 70px;}
+#main #form tr td:nth-child(2){width: 160px;}
+#main #form tr td:nth-child(3){width: 40px;}
+#form input,select{width: 120px;height: 30px;border: 1px #19c2ff solid;border-radius:20px;padding:0 10px ;}
+select{width: 140px;}
+#form #age{width: 80px;}
+#form #add,#form #del{background: url(btn.png);width:60px;color: white;border: none;}
+#form #del{margin-left: 10px;width:94px;}
+#form .order{background: url(btn.png);width:60px;color: white;border: none;}
+#main>table{
+	width: 460px;font-size: 12px;border-collapse:separate; border-spacing:0px 2px;}
+#main>table tr{height: 32px;}
+#main>table>thead>tr{background:#4cbfe5;color: white;font-weight: normal;}
+#main>table>tbody tr{background: white;color: #41c8ff;}
+#main>table td,#main>table th{text-align: center;width: 40px;}
+#main>table tr td:last-child,
+#main>table th:last-child{text-align: left;padding-left: 15px;}
+#main>table a{width: 16px;height: 16px;display: inline-block;} 
+#main>table>tbody tr td:last-child a:first-child{background: url(images/up.png) no-repeat;}
+#main>table>tbody tr td:last-child a:last-child{background: url(images/del.png) no-repeat;}
+#main>table>tbody tr td:last-child a:nth-child(2){background: url(images/down.png) center no-repeat;padding:0 10px;}
+
+#main>table>tbody .sel{background: #fffc9d;}
+#main>table>tbody .active{background: #f1f1f1;}

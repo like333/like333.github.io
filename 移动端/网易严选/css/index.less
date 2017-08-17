@@ -1,0 +1,286 @@
+@r:50rem;
+@import "reset";
+
+@main-red: #b4282d;
+@seach-bg: #ededed;
+@main-font: #343434;
+@light-font: #7f7f7f;
+@white: #fff;
+@gold:#b4a078;
+@gray-bg:#f4f4f4;
+@border: #d5d5d5;
+a{
+    text-decoration: none;
+}
+p{
+    padding: 0;
+    margin: 0;
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+body{
+    background-color:@gray-bg;
+}
+
+#header,#nav,#section,#footer{
+    position: absolute;
+}
+#header{
+    height: 90/@r;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color:#f9f9f9;
+   line-height: 90/@r;
+    #search{
+        float: left;
+        position: relative;
+        input{
+            border:none;
+            background: @seach-bg;
+            width: 410/@r;
+            height: 64/@r;
+            border-radius: 6/@r;
+            padding-left:124/@r ;
+            color: @light-font;
+            font-size:24/@r ;
+        }
+        .iconfont{
+            position: absolute;
+            top: 0/@r;
+            left: 86/@r;
+            font-size:26/@r ;
+            color: @light-font;
+        }
+        
+    }
+    
+    a{
+        width: 74/@r;
+        padding:16/@r;
+        height: 58/@r;
+        line-height: 32/@r;
+        color: @light-font;
+        position: relative;
+        text-align: center;
+        &:nth-of-type(1){
+            float: left;
+        }
+        &:nth-of-type(2){
+            float: right;
+            span{
+                left: 27/@r;
+            }
+        }
+        .iconfont{
+            font-size:36/@r;
+            display: block;
+        }
+        span{
+           font-size: 16/@r;
+           display: block;
+        }
+        
+    }
+}
+#nav{
+    height:58/@r ;
+    width: 100%;
+    top: 90/@r;
+    left: 0;
+    font-size: 26/@r;
+     background-color:#f9f9f9;
+    border-bottom: 1px solid @border;
+    box-sizing: border-box;
+    ul{
+        width: 200%;
+    }
+    li{
+         width: 136/@r;
+         text-align: center;
+         float: left;
+        a{
+            padding:0 16/@r;
+            display: inline-block;
+            height: 58/@r;
+            line-height: 58/@r; 
+            color: @main-font;
+            box-sizing: border-box;
+        }
+        .active,&:hover{
+            color: @main-red;
+            border-bottom: 4/@r solid @main-red;
+        }
+    }
+   
+}
+#wrap{
+    position: absolute;
+    left: 0;
+    top: 148/@r;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+    width: 750/@r;
+    overflow-x:hidden ;
+    #section{
+    .banner{
+        display: block;
+    }
+   .banner,img{
+        width: 100%;
+        height: 420/@r;
+    }
+    p{
+        padding: 0 30/@r;
+        width: 100%;
+        box-sizing: content-box;
+        height: 72/@r;
+        vertical-align: middle;
+        background-color:@white;
+    }
+    p span{
+        font-size:24/@r;
+        color: @main-red;
+        .iconfont{
+            padding-right:16/@r;
+            font-size: 26/@r;
+        }
+        &:nth-of-type(2){
+            padding: 0 38/@r;
+        }
+    }
+    #list{
+        margin-top: 16/@r;
+        background-color: @white;
+        h3{
+            height: 110/@r;
+            line-height: 110/@r;
+            text-align: center;
+            font-size: 28/@r;
+            color: @main-font;
+            margin: 0;
+            padding: 0;
+            font-weight: normal;
+            .iconfont{
+                font-size: 28/@r;
+                padding-left: 12/@r;
+            }
+        };
+        
+        #goods{
+            padding:0 16/@r; 
+           &:after{
+               content: '';
+               display: block;
+               clear:both;
+           }
+           zoom:1;
+            li{
+                float: left;
+                width:354/@r ;
+                height: 226/@r;
+                background:@gray-bg ;
+                margin-bottom: 8/@r;
+                border-radius:2/@r; 
+                position: relative;
+                &:nth-of-type(2n-1){
+                    margin-right:8/@r ;
+                }
+                a{
+                    p{
+                       position: absolute;
+                       padding: 0;
+                       top: 16/@r;
+                       background: transparent;
+                       left: 16/@r;
+                        span{
+                            display:block;
+                            padding: 0;
+                            &:nth-of-type(1){
+                                font-size:26/@r ;
+                                color: @main-font;
+                                line-height: 40/@r;
+                            }
+                            &:nth-of-type(2){
+                                font-size:26/@r ;
+                                line-height: 40/@r;
+                                color: @main-font;
+                                i{
+                                    font-size:20/@r ;
+                                    font-style: normal;
+                                }
+                            }
+                            &:nth-of-type(3){
+                                margin-top: 12/@r;
+                                color: @gold;
+                                border: 1px solid @gold;
+                                line-height:26/@r ;
+                                font-size: 20/@r;
+                                width: 60/@r;
+                                text-align: center;
+                                padding-top: 4/@r;
+                                border-radius: 4/@r;
+                            }
+                        }
+                    }
+                    img{
+                        bottom:16/@r;
+                        right: 16/@r;
+                        position: absolute;
+                        width: 166/@r;
+                        height: 135/@r;
+                    }
+                }
+               
+            }
+        }
+    }
+}
+    }
+
+#footer{
+    width: 100%;
+    height: 98/@r;
+    bottom: 0;
+    border-top:1px solid @border;
+    left: 0;
+    background-color:#fafafa;
+    font-size : 24/@r;
+    .car{
+        
+    }
+    .active{
+        color: @main-red;
+    }
+     a{
+        height: 98/@r;
+        color: @light-font;
+        display: inline-block;
+        width: 144/@r;
+        text-align: center;
+        padding-top: 20/@r;
+        &:hover{
+            color: @main-red;
+        }
+        .iconfont{
+            font-size:38/@r;
+            display: block;
+        }
+        span{
+            line-height: 32/@r;
+           display: block;
+        }
+        
+    }
+}
+
+

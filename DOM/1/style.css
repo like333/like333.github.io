@@ -1,0 +1,101 @@
+
+
+#box {
+	overflow: hidden;
+	width: 700px;
+	height: 500px;
+	top: 0;
+	position: relative;
+	background: url(bg.png) no-repeat;
+	margin: 0 auto;
+}
+
+h2 {
+	background: url(title.png) center no-repeat;
+	height: 48px;
+	overflow: hidden;
+	margin: 37px 0 33px 0;
+}
+
+#main {
+	width: 360px;
+	margin: 0 auto;
+	color: white;
+	font-size: 14px;
+}
+
+textarea {
+	width: 324px;
+	height: 94px;
+	resize: none;
+	padding: 16px;
+	border: 2px #524490 solid;
+	border-radius: 8px;
+	background: #e8e6f4;
+}
+
+input {
+	width: 100px;
+	height: 30px;
+	background: #14afd0;
+	color: white;
+	font-size: 14px;
+	border: 2px #fff solid;
+	border-radius: 15px;
+}
+
+#main>li:first-child {
+	margin-bottom: 10px;
+}
+
+#main>li:last-child {
+	margin-top: 13px;
+}
+
+#main>li:nth-child(2) {
+	text-align: right;
+}
+
+#board {
+	overflow: auto;
+	height: 180px;
+}
+
+#board li p {
+	position: relative;
+	display: inline-block;
+	background: #594c94;
+	border-radius: 8px;
+	width: 266px;
+	min-height: 40px;
+	line-height: 40px;
+	padding: 0 10px;
+	margin-left: 10px;
+	color: white;
+	font-size: 14px;
+}
+#board li a{
+	position: absolute;
+	right: 10px;
+	color:#D1D1D1;
+	text-decoration: none;
+	font-size: 12px;
+	display: none;
+	top: 0px;
+}
+#board li a:hover{text-decoration: underline;
+color: white;}
+#board li {
+	margin-bottom: 12px;
+}
+
+#board li span {
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -4px;
+	top: 17px;
+	border-right: 4px #594C94 solid;
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+}

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul li ul {
+				display: none;
+			}
+			
+			.hid {
+				display: none;
+			}
+			
+			.show {
+				display: block;
+			}
+			#box{width:240px;background:#DBE3FA;padding: 20px;}
+			ul{padding: 0;margin: 0;}
+			li{list-style: none;}
+			a{text-decoration: none;font-family: "微软雅黑";}
+			.one{overflow:hidden;background: white;margin-top:10px;border-radius:10px;width: 220px;}			
+			.one>a{padding-left:40px;background: #e15671 url(3/images/hid.png) 12px center no-repeat;border-radius:10px;color: white;display: inline-block;width: 180px;height:40px;line-height: 40px;}
+			.one .active{border-bottom-left-radius: 0;border-bottom-right-radius: 0;background: #e15671 url(3/images/show.png) 12px center no-repeat;}
+			
+			.one ul{margin:0px 0 10px 40px;border-left: #fceef1 1px solid;padding-top: 10px;}
+			.two,.three,.four{padding-bottom: 10px;margin-left: -5px;}
+			.two a{padding-left:18px;}
+			.two>a{color: #8c3f4e;background: url(3/images/two.png) 0px center no-repeat;}
+			.three a{color: #595959;background: url(3/images/three.png) 0px center no-repeat;}
+		</style>
+		<script>
+			window.onload = function() {
+				var oBox = document.getElementById('box');
+				var aLi1 = oBox.children;
+
+				for(var i = 0; i < aLi1.length; i++) {
+					if(aLi1[i].children[0].nextElementSibling) {
+						var last1 = null;
+						aLi1[i].children[0].onclick = function() {
+							if(this.nextElementSibling.className) {
+								this.nextElementSibling.className = '';
+								this.className='';
+							} else {
+								if(last1) {
+									last1.nextElementSibling.className = '';
+									last1.className = '';
+								}
+								this.nextElementSibling.className = 'show';
+								this.className='active';
+							}
+							last1 = this;
+							for(var i = 0; i < this.nextElementSibling.children.length; i++) {
+								if(this.nextElementSibling.children[i].children[0].nextElementSibling) {
+									var last2= null;
+									this.nextElementSibling.children[i].children[0].onclick = function() {
+										if(this.nextElementSibling.className) {
+											this.nextElementSibling.className = '';
+										} else {
+											if(last2) {
+												last2.nextElementSibling.className = '';
+											}
+											this.nextElementSibling.className = 'show';
+										}
+										last2 = this;
+										for(var i = 0; i < this.nextElementSibling.children.length; i++) {
+											if(this.nextElementSibling.children[i].children[0].nextElementSibling) {
+												var last3 = null;
+												this.nextElementSibling.children[i].children[0].onclick = function() {
+													if(this.nextElementSibling.className) {
+														this.nextElementSibling.className = '';
+													} else {
+														if(last3) {
+															last3.nextElementSibling.className = '';
+														}
+														this.nextElementSibling.className = 'show';
+
+													}
+													last3 = this;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<ul id="box">
+			<li class="one">
+				<a href="javascript:;">一级菜单</a>
+				<ul>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+						<ul>
+							<li class="three">
+								<a href="javascript:;">三级菜单</a>
+							</li>
+							<li class="three">
+								<a href="javascript:;">三级菜单</a>
+								<ul>
+									<li class="four">
+										<a href="javascript:;">四级菜单</a>
+									</li>
+									<li class="four">
+										<a href="javascript:;">四级菜单</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+						<ul>
+							<li class="three">
+								<a href="javascript:;">三级菜单</a>
+								<ul>
+									<li class="four">
+										<a href="javascript:;">四级菜单</a>
+									</li>
+									<li class="four">
+										<a href="javascript:;">四级菜单</a>
+									</li>
+								</ul>
+							</li>
+							<li class="three">
+								<a href="javascript:;">三级菜单</a>
+								<ul>
+									<li class="four">
+										<a href="javascript:;">四级菜单</a>
+									</li>
+									<li class="four">
+										<a href="javascript:;">四级菜单</a>
+									</li>
+								</ul>
+							</li>
+							<li class="three">
+								<a href="javascript:;">三级菜单</a>
+							</li>
+						</ul>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+				</ul>
+			</li>
+			<li class="one">
+				<a href="javascript:;">一级菜单</a>
+				<ul>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+				</ul>
+			</li>
+			<li class="one">
+				<a href="javascript:;">一级菜单</a>
+				<ul>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+				</ul>
+			</li>
+			<li class="one">
+				<a href="javascript:;">一级菜单</a>
+				<ul>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+				</ul>
+			</li>
+			<li class="one">
+				<a href="javascript:;">一级菜单</a>
+				<ul>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+					<li class="two">
+						<a href="javascript:;">二级菜单</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</body>
+
+</html>

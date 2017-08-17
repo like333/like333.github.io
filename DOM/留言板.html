@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="public.css" />
+		<link rel="stylesheet" href="1/style.css" />
+		<script>
+			window.onload = function() {
+				var oMain = document.getElementById('main');
+				var oBox = document.getElementById('box');
+				oBox.style.marginTop = (document.documentElement.clientHeight - oBox.offsetHeight) / 2 + 'px';
+				var aLi = oMain.children;
+				var oBoard = aLi[2].children[0];
+				var arr = ['1/iconBlue.png', '1/iconGreen.png'];
+				var n = 0;
+				aLi[1].children[0].onclick = function() {
+
+					var str = aLi[0].children[0];
+					if(str.value == '') {
+						alert('请输入内容!');
+					} else {
+						//						alert(oBoard.children.length);
+						if(oBoard.children.length == 0) { oBoard.innerHTML = ''; }
+						var li = document.createElement('li');
+						var img = document.createElement('img');
+						var span = document.createElement('span');
+						var a = document.createElement('a');
+						a.innerHTML = '删除第' + (n + 1) + '条';
+						var p = document.createElement('p');
+
+						p.innerHTML = str.value;
+						p.appendChild(a);
+						p.appendChild(span);
+						img.src = arr[n % 2];
+						li.appendChild(img);
+						li.appendChild(p);
+						oBoard.appendChild(li);
+						str.value = '';
+						n++;
+					}
+					for(var i = 0; i < oBoard.children.length; i++) {
+						over(oBoard.children[i]);
+
+					}
+
+				}
+				function over(obj) {
+					obj.onmouseover = function() {
+						obj.children[1].children[0].style.display = 'block';
+						obj.children[1].children[0].onclick = function() {
+							n--;
+							if(obj.nextElementSibling) {
+								var last = obj.parentNode.lastElementChild;
+								var m = n;
+								for(var i = 0; i < n; i++) {
+									last.children[1].children[0].innerHTML = '删除第' + m + '条';
+									last = last.previousElementSibling;
+									if(last == obj) break;
+									m--;
+								}
+							}
+							oBoard.removeChild(obj);
+							if(oBoard.children.length == 0) {
+								oBoard.innerHTML = '请发言...'
+							}
+						}
+					}
+					obj.onmouseout = function() {
+						obj.children[1].children[0].style.display = 'none';
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<h2></h2>
+			<ul id="main">
+				<li><textarea>输入内容...</textarea></li>
+				<li><input type="button" value="提交" /></li>
+				<li>
+					<ul id='board'>
+						请发言...
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>

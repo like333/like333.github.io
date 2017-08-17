@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* { margin: 0; padding: 0;}
+			#div1 { width: 600px; border: 1px #dadada solid; margin: 10px auto 0;}
+		</style>
+		<script>
+			window.onload = function(){
+				var oDiv = document.getElementById('div1');
+				var c = document.getElementById('myCanvas');
+				var ctx = c.getContext('2d');
+				
+				var i =0;
+				var yImg = new Image();
+				yImg.src = 'icon.png';
+				yImg.onload = function(){
+						
+					var ball = [];
+					setInterval(function(){
+						ball.push({
+							x: 300,
+							y: 0,
+							r: 200,
+							num: 0,
+							startX: 300,
+							startY: 0
+						});
+					},400);
+					
+					setInterval(function(){
+						
+						ctx.clearRect(0,0,c.width,c.height);
+						
+						ctx.beginPath();
+						ctx.arc(300,200,200,-90*Math.PI/180,180*Math.PI/180,false);
+						ctx.stroke();
+						
+						ctx.beginPath();
+						ctx.arc(250,200,150,180*Math.PI/180,360*Math.PI/180,false);
+						ctx.stroke();
+						
+						ctx.beginPath();
+						ctx.arc(400,200,20,0,360*Math.PI/180,false);
+						ctx.stroke();
+						
+						for(var i=0; i<ball.length; i++){
+						
+							ctx.beginPath();
+							ctx.moveTo(ball[i].x,ball[i].y);
+							
+							ctx.arc(ball[i].x,ball[i].y,20,0,2*Math.PI,false);
+							ctx.fill();
+						}
+						ctx.save();
+						ctx.translate(300,200);
+						ctx.rotate(iRotate);
+						ctx.translate(-40,-40);
+						ctx.drawImage(yImg,0,0);
+						ctx.restore();
+						
+						//生成子弹
+						for(var i=0; i<bullet.length; i++){
+							ctx.save();
+							ctx.fillStyle = 'red';
+							ctx.beginPath();
+							ctx.moveTo(bullet[i].x,bullet[i].y);
+							ctx.arc(bullet[i].x,bullet[i].y,20,0,2*Math.PI,false);
+							ctx.fill();
+							ctx.restore();
+						}
+						
+					},1000/60);
+					
+					setInterval(function(){
+						for(var i=0; i<ball.length; i++){
+							ball[i].num++;//角度的改变
+							if(ball[i].num == 270){
+								ball[i].r = 150;
+								ball[i].startX = 250;
+								ball[i].startY = 50;
+							}
+							if(ball[i].num == 270 + 180){
+								alert('游戏结束');
+								window.location.reload();
+							}
+							ball[i].x = Math.sin(ball[i].num*Math.PI/180)*ball[i].r + ball[i].startX;
+							ball[i].y = ball[i].r - Math.cos(ball[i].num*Math.PI/180)*ball[i].r + ball[i].startY;
+						}
+						
+						for(var i = 0;i<bullet.length;i++){
+							bullet[i].x += bullet[i].sX;
+							bullet[i].y += bullet[i].sY;
+						}
+						
+						for(var i = 0;i<bullet.length;i++){
+							for(var j = 0;j<ball.length;j++){
+								if(PZ(bullet[i].x,bullet[i].y,ball[j].x,ball[j].y)){
+									bullet.splice(i,1);
+									ball.splice(j,1);
+									break;
+								}
+							}
+						}
+					},30);
+					
+					var iRotate = 0;
+				 	c.onmousemove = function(ev){
+					 	var ev = ev || window.ev;
+					 	var x = ev.clientX - oDiv.offsetLeft;
+					 	var y = ev.clientY - oDiv.offsetTop;
+					 	
+					 	var a = x - 300;
+					 	var b = y - 200;
+					 	
+					 	var c = Math.sqrt(a*a + b*b);
+					 
+					 	if(a>0 && b>0){
+				 			iRotate = Math.asin(b/c) + 90*Math.PI/180;
+					 	}else if(a>0){
+					 		iRotate = Math.asin(a/c);
+					 	}else if(a<0 && b>0){
+					 		iRotate = -( Math.asin(b/c) + 90*Math.PI/180);
+					 	}else if(a<0){
+					 		iRotate = Math.asin(a/c);
+					 	};
+				 	}
+				 	
+				 	var bullet = [];
+				 	c.onmousedown = function(ev){
+				 		var ev = ev || window.ev;
+					 	var x = ev.clientX - oDiv.offsetLeft;
+					 	var y = ev.clientY - oDiv.offsetTop;
+					 	
+					 	var a = x - 300;
+					 	var b = y - 200;
+					 	
+					 	var c = Math.sqrt(a*a + b*b);
+					 	
+					 	var speed = 5;
+					 	var sX = speed*a/c;
+					 	var sY = speed*b/c;
+					 	
+					 	bullet.push({
+					 		x: 300,
+					 		y: 200,
+					 		sX: sX,
+					 		sY: sY
+					 	});
+				 	};
+				};
+				
+				function PZ(x1,y1,x2,y2){
+					var a = x1-x2;
+					var b = y1-y2;
+					var c = Math.sqrt(a*a+b*b);
+					if( c < 40){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="div1">
+			<canvas id="myCanvas" width="600px" height="600px"></canvas>
+		</div>
+	</body>
+</html>

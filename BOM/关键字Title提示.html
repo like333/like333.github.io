@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			p{position: absolute;bottom: 10px;width: 600px;left: 500px;}
+			a{position: relative;}
+			span{display:none;position: absolute;border: 1px solid #BFC649;background: white;padding: 10px;top: 16px;left: 0px;width: 230px;color: cadetblue;}
+		</style>
+		<script>
+			window.onload=function(){
+				var aA=document.getElementsByTagName('a');
+				var aSpan=document.getElementsByTagName('span');
+				var oP=document.getElementsByTagName('p')[0];
+				for(var i=0;i<aA.length;i++){
+					aA[i].index=i;
+					aA[i].onmouseover=function(){
+						this.style.zIndex=1;
+						aSpan[this.index].style.display='inline';
+						var spanH=aSpan[this.index].offsetHeight;
+						var aTop=oP.offsetHeight-this.offsetTop-this.offsetHeight;
+						if(spanH>aTop){
+							aSpan[this.index].style.top=0-spanH+'px';
+						}
+//						console.log(aTop);
+					}
+					aA[i].onmouseout=function(){
+						this.style.zIndex=0;
+						aSpan[this.index].style.display='none';
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<p>在1995年时，由<a href="#">Netscape
+			<span>网景是网景通信公司</span></a>
+			公司的Brendan Eich，在网景导航者浏览器上首次设计实现而成。因为Netscape与
+			<a href="#">Sun
+				<span>Sun Microsystems是IT及互联网技术服务公司（已被甲骨文收购）Sun Microsystems 创建于1982年。</span>
+			</a>合作，Netscape管理层希望它外观看起来像<a href="#">Java<span>Java是一门面向对象编程语言，不仅吸收了C++语言的各种优点，还摒弃了C++里难以理解的多继承、指针等概念，因此Java语言具有功能强大和简单易用两个特征。</span></a>，因此取名为JavaScript。但实际上它的语法风格与Self及<a href="#">Scheme<span>Scheme 编程语言是一种Lisp方言，诞生于1975年，由 MIT 的 Gerald J. Sussman 和 Guy L. Steele Jr. 完成。它是现代两大Lisp方言之一；另一个方言是Common Lisp。</span></a>较为接近。
+为了取得技术优势，微软推出了<a href="#">JScript<span>JScript是由微软公司开发的活动脚本语言，是微软对ECMAScript规范的实现。</span></a>，CEnvi推出ScriptEase，与JavaScript同样可在浏览器上运行。为了统一规格，因为JavaScript兼容于ECMA标准，因此也称为<a href="#">ECMAScript<span>ECMAScript是一种由Ecma国际（前身为欧洲计算机制造商协会,英文名称是European Computer Manufacturers Association）通过ECMA-262标准化的脚本程序设计语言。</span></a>。</p>
+	</body>
+</html>

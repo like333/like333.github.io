@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{width: 400px;height: 300px;border:10px #aaa solid;padding: 5px;position: relative;}
+			p{text-indent: 28px;font-size: 14px;font-family: "微软雅黑";}
+			a{color: red;text-decoration: underline;cursor: pointer;position: relative;}
+			span{position: absolute;width: 200px;color: black;padding:5px;border:1px #06B1DA solid;top: 20px;left:0px;background: white;display: none;}
+
+		</style>
+		<script>
+			window.onload=function(){
+				var arr=document.getElementsByTagName('a');
+				var oBox=document.getElementById('box');
+				var w=oBox.offsetWidth-parseInt(getComputedStyle(oBox).borderLeftWidth)*2;
+				var h=oBox.offsetHeight-parseInt(getComputedStyle(oBox).borderTopWidth)*2;
+				
+//				console.log(h);
+				for(var i=0;i<arr.length;i++){
+					arr[i].index=i;
+
+					arr[i].onmouseover=function(){
+						this.children[0].style.display='block';
+						this.style.zIndex=1;
+						var r=w-arr[this.index].offsetLeft;//a距离box右边的距离
+						var b=h-arr[this.index].offsetTop;//a距离box下边的距离
+						var ww=this.children[0].offsetWidth;//a下span的宽度
+						var hh=this.children[0].offsetHeight;//a下span的高度
+						if(r<ww){
+							this.children[0].style.left=(r-ww-5)+'px';
+						}if(b<hh){
+							this.children[0].style.top=0-hh+3+'px';
+						}
+						
+					}
+					arr[i].onmouseout=function(){
+						this.children[0].style.display='';
+						this.style.zIndex=0;
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="box">
+			<p>
+				抱怨现在大家黑<a href="javascript:;">苏联<span>苏联全称苏维埃社会主义共和国联盟,于1991年12月25日解体</span></a>，那么如果是美国完蛋了，现在大家会怎么黑<a href="javascript:;">美国<span>美利坚合众国（英语：United States of America），简称“美国”，是由华盛顿哥伦比亚特区、50个州和关岛等众多海外领土组成的联邦共和立宪制国家。</span></a>？看我们早年的教材也能略知一二了。</p>
+			<p>
+				自己阵营下的，比如我们和<a href="javascript:;">越南<span>越南社会主义共和国（英语：Socialist Republic of Vietnam，越南语：Cộng hòa Xã hội Chủ nghĩa Việt Nam），简称越南（Vietnam），是亚洲的一个社会主义国家。</span></a>，已经叛变了，而且叛变后比原来好得不是一星半点，你再说一个馒头和九个馒头根本没有用，因为中国现在考虑的不是吃饭，而是减肥的问题了，这非常尴尬啊。 自诩根正苗红的左翼派别，虽然我100%肯定按他们说的方向走也是死路一条，但不妨碍人家也跳出来批判<a href="#">苏联<span>苏联全称苏维埃社会主义共和国联盟（俄语：Союз Советских Социалистических Республик；俄文缩写：СССР），1922年12月30日由</span></a>。
+			</p>
+			<p>
+				统一思想也没有放松，这样还是不行，只能说明你比人家笨，还能说明什么其他的？ 有人会说，关键是<a href="javascript:;">东方阵营<span>西方国家，是指西方意识形态占主流的国家。在不同的场合和不同的时间有着不同的定义。主要是指西欧，北欧，美国，加拿大，澳大利亚，新西兰及部分南欧国家</span></a>不团结，出了中国这个二五仔。我记得有一位伊斯兰领导人说过，“<a href="javascript:;">穆斯林<span>“伊斯兰”的意思是顺从真主，实现和平，那么信仰伊斯兰宗教的人，就要成为“顺从真主的人”、“实现和平的人”。</span></a>被人欺负，是因为穆斯林不团结”。这话看似有理，实则是屁话，因为<a href="javascript:;">基督徒<span>基督教是对奉耶稣基督为救世主的各教派统称，亦称基督宗教。公元1世纪，发源于罗马的巴勒斯坦省（今日的以色列、巴勒斯坦和约旦地区）。</span></a>更不团结，世界大战。
+			</p>
+		</div>
+
+	</body>
+
+</html>

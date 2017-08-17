@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			
+		<title>jjj</title>
+		
+		<style>
+			*{margin: 0; padding: 0;}
+			ul{ width: 200px; background: red; position: absolute;left: 0;z-index: 4; top: 30px;}
+			.active{ background: yellow;}
+			#header {height: 30px; background: blue; color: white;}
+		</style>
+		<script src="../js/jquery-1.11.0.js"></script>
+		<script>
+			window.onload=function(){
+				var $oUl=$('#list');
+				var h=$(window).height();
+				$oUl.css('height',h-30);
+				$(window).scroll(function() {
+					$oUl.css('top',30+$(window).scrollTop());
+				});
+				var oT=Number(window.parent.document.getElementById('iframe1').title)-1;
+				
+				var $aA=$('#list a');
+				$aA.removeClass('active');
+				$aA.eq(oT).addClass('active');
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="header">tititile</div>
+		<ul id="list">
+			<li><a class="active" href="1.html" target="_parent">1111</a></li>
+			<li><a href="2.html" target="_parent">222</a></li>
+			<li><a href="3.html" target="_parent">3333</a></li>
+		</ul>
+	</body>
+</html>

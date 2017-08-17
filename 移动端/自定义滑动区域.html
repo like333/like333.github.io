@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,user-scalable=no" />
+		<title></title>
+		<style>
+			body{
+				margin: 0;
+			}
+			body,html{
+				height: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			header,footer{
+				position: absolute;
+				height: 40px;
+				width: 100%;
+				background: black;
+				color: white;
+				font-size: 20px;
+				line-height:40px;
+				text-align: center;
+				left: 0;
+				z-index: 1;
+			}
+			header{
+				top: 0;
+			}
+			footer{
+				bottom: 0;
+			}
+			
+			#wrap{
+				position: absolute;
+				top: 40px;
+				left: 0;
+				right: 0;
+				bottom: 40px;
+			}
+			#ul1{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#ul1 li{
+				height: 30px;
+				border-bottom: 1px #ddd solid;
+				line-height: 30px;
+				text-indent: 20px;
+			}
+		</style>
+		<script src="../transform/tween2.js"></script>
+		<script>
+			document.addEventListener('touchstart',function(ev){
+				ev.preventDefault();
+			})
+			
+			function creatList(obj){
+				for(var i=0; i<100; i++){
+					var li = document.createElement('li');
+					li.innerHTML = '第'+i+'行';
+					obj.appendChild(li);
+				}
+			}
+			
+			window.onload = function(){
+				var wrap = document.querySelector('#wrap');
+				var inner = document.querySelector('#ul1');
+				creatList(inner);
+				
+				mScroll({
+					el:wrap,
+					offScrollBar:false,
+				});
+			}
+			
+			function mScroll(init){
+				if(!init.el){
+					return;
+				}
+				var inner = init.el.children[0];
+				inner.style.minHeight = '100%';
+				
+				if(!init.offScrollBar){//滚动条控制
+					var scrollBar = document.createElement('div');
+					scrollBar.style.cssText = 'width: 6px;background:rgba(23,120,240,.5);position:absolute;top: 0px;right: 0;border-radius: 6px; transition:1s; opacity:0;'
+					init.el.appendChild(scrollBar);
+					var maxH =  init.el.clientHeight-inner.offsetHeight,
+					scale = init.el.clientHeight/inner.offsetHeight ; //滚动条滚动比例
+				}
+				
+				var sPoint = 0,sEl = 0,transY = 0,
+				lastDis = 0,//间隔的距离
+				lastY = 0,//上次的距离
+				lastTime = 0,//最后一次的时间
+				disTime = 0;//间隔时间
+				
+				//css(list,"translateZ",0.01);
+				inner.addEventListener('touchstart',function(ev){
+					
+					maxH = init.el.clientHeight - inner.offsetHeight;
+					
+					if(!init.offScrollBar){//滚动条控制
+						if(maxH>=0){
+							scrollBar.style.display = 'none';
+						}else{
+							scrollBar.style.display = 'block';
+						}
+						scale = init.el.clientHeight/inner.offsetHeight ;
+						scrollBar.style.height = init.el.clientHeight*scale +'px';
+					}	
+					
+					clearInterval(inner.timer);
+					var e = ev.changedTouches[0];
+					sPoint = e.pageY;
+					sEl = css(inner,"translateY");
+					lastY = sEl;
+					lastIime = new Date().getTime();
+					lastDis = disTime = 0;
+					
+					(!init.offScrollBar)&&(scrollBar.style.opacity = 1);
+					
+				})
+				inner.addEventListener('touchmove',function(ev){
+					var nowTime = new Date().getTime();
+					var e = ev.changedTouches[0];
+					var disY = e.pageY - sPoint;
+					var transY = sEl + disY;
+					css(inner,'translateY',transY);
+					(!init.offScrollBar)&&( css(scrollBar,'translateY',-transY*scale) );//滚动条移动距离
+					lastDis = transY - lastY;
+					lastY = transY;
+					disTime = nowTime - lastTime;
+					lastTime = nowTime;
+				})
+				
+				inner.addEventListener('touchend',function(){
+					var type = 'easeOut'
+					var speed = Math.round(lastDis / disTime * 10);
+					speed = disTime<=0?0:speed;
+					var target = Math.round(speed*20 + css(inner,'translateY'));//缓冲距离
+					if(target>0){
+						target = 0;
+						type = "backOut"
+					}else if(target < maxH){
+						target = maxH;
+						type = "backOut";
+					}
+					MTween({
+						el:inner,
+						target:{
+							translateY:target,
+						},
+						time:Math.round(Math.abs(target - css(inner,"translateY"))*2),
+						type:type,
+						callBack:function(){
+							(!init.offScrollBar)&&(scrollBar.style.opacity = 0);
+						},
+						callIn:function(){
+							if(!init.offScrollBar){
+								var transY = css(inner,'translateY');
+								css(scrollBar,'translateY',-transY*scale);
+							}
+						}
+					});
+					
+				})
+				
+			}
+		</script>
+	</head>
+	<body>
+		<header>我是标题</header>
+		<div id="wrap">
+			<div id="ul1"></div>
+		</div>
+		<footer>我是页脚</footer>
+	</body>
+</html>

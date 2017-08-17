@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script>
+		window.onload=function(){
+			var aLi=document.getElementsByTagName('li');
+			for(var i=0;i<aLi.length;i++){
+				aLi[i].children[0].onclick=function(){
+					this.parentNode.parentNode.insertBefore(this.parentNode,this.parentNode.previousElementSibling);
+				}
+				aLi[i].children[1].onclick=function(){
+					if(this.parentNode.nextElementSibling){
+						this.parentNode.parentNode.insertBefore(this.parentNode.nextElementSibling,this.parentNode);
+					}else{
+						this.parentNode.parentNode.insertBefore(this.parentNode,this.parentNode.parentNode.firstElementChild);
+					}
+
+				}
+			}
+		}
+	</script>
+	<body>
+		<ul>
+			<li>哈哈哈哈哈哈<input type="button" value="上移"/><input type="button" value="下移"/></li>
+			<li>呵呵呵呵呵呵<input type="button" value="上移"/><input type="button" value="下移"/></li>
+			<li>哇哇哇哇哇哇<input type="button" value="上移"/><input type="button" value="下移"/></li>
+			<li>啊呀呀呀呀呀<input type="button" value="上移"/><input type="button" value="下移"/></li>
+			<li>啦啦啦啦阿拉<input type="button" value="上移"/><input type="button" value="下移"/></li>
+			<li>呼呼呼呼呼呼<input type="button" value="上移"/><input type="button" value="下移"/></li>
+		</ul>
+	</body>
+</html>

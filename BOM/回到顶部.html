@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{height: 1000px;}
+			div{position: fixed;bottom: 0px;right: 0;width: 36px;height: 36px;color: white;line-height: 36px;background: red;text-align: center;cursor: pointer;}
+		</style>
+		<script>
+			window.onload=function(){
+				var oDiv=document.getElementsByTagName('div')[0];
+				oDiv.onclick=function(){
+					document.documentElement.scrollTop=0;
+					document.body.scrollTop=0;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div>Top</div>
+	</body>
+</html>

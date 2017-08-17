@@ -1,0 +1,181 @@
+a,
+input,
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+input,
+button {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+body {
+  margin: 0;
+  -webkit-user-select: none;
+}
+body * {
+  -webkit-user-select: none;
+  font-family: helvetica;
+}
+body {
+  -webkit-text-size-adjust: 100%;
+  /*横竖屏切换时候字体大小的改变*/
+}
+h1 {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+#header {
+  height: 2.06rem;
+  background: #ef3239;
+  width: 15rem;
+  top: 0;
+  left: 0;
+  position: absolute;
+  border-bottom: 1px #a82d31 solid;
+  box-sizing: border-box;
+}
+#header h1 {
+  text-align: center;
+  font-size: 0.8rem;
+  color: white;
+  font-weight: normal;
+  line-height: 1.76rem;
+}
+#header h1 i {
+  font-size: 0.64rem;
+  margin-right: 0.32rem;
+}
+#header a {
+  width: 2.56rem;
+  height: 1.76rem;
+  position: absolute;
+  top: 0;
+  color: white;
+  text-align: center;
+  line-height: 1.76rem;
+}
+#header .task {
+  left: 0;
+}
+#header .task i {
+  font-size: 0.74rem;
+}
+#header .refresh {
+  right: 0;
+}
+#header .refresh i {
+  font-size: 0.72rem;
+}
+#header i {
+  color: white;
+}
+.active {
+  color: #f23838 !important;
+}
+#nav {
+  height: 2.12rem;
+  width: 15rem;
+  position: absolute;
+  top: 2.06rem;
+  background: #fdfdfd;
+  border-top: 1px solid #b0b0b0;
+  border-bottom: 1px solid #b0b0b0;
+  box-sizing: border-box;
+}
+#nav a {
+  float: left;
+  height: 2.08rem;
+  width: 25%;
+  text-align: center;
+  line-height: 2.08rem;
+  font-size: 0.72rem;
+  color: #848689;
+}
+#nav a .iconfont {
+  font-size: 0.72rem;
+}
+#nav a .iBox {
+  width: 0.72rem;
+  height: 2.08rem;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+#nav a .iBox i {
+  position: absolute;
+  left: 0.08rem;
+  font-size: 0.56rem;
+}
+#nav a .iBox .icon-up {
+  top: -0.24rem;
+}
+#nav a .iBox .icon-down {
+  top: 0.24rem;
+}
+#wrap {
+  position: absolute;
+  top: 4.16rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+#list {
+  background: #fdfdfd;
+}
+#list li {
+  height: 5.62rem;
+  border-bottom: 1px solid #e0e0e0;
+  box-sizing: border-box;
+}
+#list li a {
+  padding: 0.46rem;
+  height: 4.68rem;
+  float: left;
+}
+#list li a img {
+  float: left;
+  width: 4.7rem;
+  height: 4.7rem;
+}
+#list li a #spanWrap {
+  float: right;
+  width: 8.64rem;
+  display: block;
+}
+#list li a #spanWrap span {
+  display: block;
+}
+#list li a #spanWrap .sTitle {
+  line-height: 0.88rem;
+  font-size: 0.56rem;
+  color: #333;
+  margin-top: 0.08rem;
+}
+#list li a #spanWrap .sPrice {
+  color: #f23838;
+  font-size: 0.76rem;
+  line-height: 1.28rem;
+  margin-top: 0.6rem;
+}
+#list li a #spanWrap .sComment {
+  line-height: 0.96rem;
+  font-size: 0.56rem;
+  color: #333;
+}

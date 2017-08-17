@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="public.css" />
+		<link rel="stylesheet" type="text/css" href="2/style.css" />
+		<script>
+			window.onload = function() {
+				var aData = [{
+						'num': 1,
+						'name': 'LEO',
+						'年龄': 26,
+						'性别': '男',
+					},
+					{
+						'num': 2,
+						'name': '小美',
+						'年龄': 27,
+						'性别': '女',
+					},
+					{
+						'num': 3,
+						'name': '美琪',
+						'年龄': 18,
+						'性别': '男',
+					},
+					{
+						'num': 4,
+						'name': '勇升',
+						'年龄': 24,
+						'性别': '男',
+					}
+				];
+				//			数据展示start
+				var oMain = document.getElementById('main');
+				var oTable = oMain.children[1];
+				for(var i = 0; i < aData.length; i++) {
+					var tr = document.createElement('tr');
+					var td = document.createElement('td');
+					td.innerHTML = '<input type="checkbox"/>';
+					tr.appendChild(td);
+					for(var attr in aData[i]) {
+						var td = document.createElement('td');
+						td.innerHTML = aData[i][attr];
+						tr.appendChild(td);
+					}
+					var td = document.createElement('td');
+					td.innerHTML = '<a href="javascript:;"></a><a href="javascript:;"></a><a href="javascript:;"></a>'
+					tr.appendChild(td);
+					oTable.tBodies[0].appendChild(tr);
+				}
+				//			数据展示end		
+				var add = document.getElementById('add'); //添加
+				var del = document.getElementById('del'); //删除
+				var name = document.getElementById('name'); //name
+				var age = document.getElementById('age'); //age
+				var sex = document.getElementById('sex'); //性别
+				
+				var table = document.getElementById('main').children;
+				var th=table[1].tHead.children[0];
+				var tr = table[1].tBodies[0].children;
+				var n = 0;
+				operate();
+				//添加
+				add.onclick=function(){
+					
+					if(name.value&&age.value){
+						if(parseInt(age.value)==Number(age.value)){
+							var addTr=document.createElement('tr');
+							var addTd=[];
+							for(var i=0;i<th.children.length;i++){
+								addTd.push(document.createElement('td'));
+							}
+							addTd[0].innerHTML='<input type="checkbox"/>';
+							addTr.appendChild(addTd[0]);
+							addTd[1].innerHTML=tr.length+1;addTr.appendChild(addTd[1]);
+							addTd[2].innerHTML=name.value;addTr.appendChild(addTd[2]);
+							addTd[3].innerHTML=age.value;addTr.appendChild(addTd[3]);
+							addTd[4].innerHTML=sex.value;addTr.appendChild(addTd[4]);
+							addTd[5].innerHTML= '<a href="javascript:;"></a><a href="javascript:;"></a><a href="javascript:;"></a>';
+							addTr.appendChild(addTd[5]);
+							table[1].tBodies[0].appendChild(addTr);
+						}else{
+							
+							alert('年零输入有误！');
+						}
+					}else{
+						if(name.value){
+							alert('请输入年龄！');
+						}else{
+							alert('请输入姓名！');
+						}
+					}
+					name.value=age.value='';
+					operate();
+				}
+				
+				function operate(){
+				for(var i = 0; i < tr.length; i++) {
+					//删除
+					tr[i].lastElementChild.children[2].onclick=function(){
+						table[1].tBodies[0].removeChild(this.parentNode.parentNode);
+						selAll();
+					}
+					//鼠标滑过以及选中变色
+					tr[i].onmouseover = function() {
+						this.className = this.firstElementChild.firstElementChild.checked ? 'sel' : 'active';
+					}
+					tr[i].onmouseout = function() {
+						this.className = this.firstElementChild.firstElementChild.checked ? 'sel' : '';
+					}
+					//全选
+					tr[i].firstElementChild.firstElementChild.onclick = selAll;
+					//上移
+					tr[i].lastElementChild.children[0].onclick=function(){
+						var pre=this.parentNode.parentNode.previousElementSibling;
+						var clo=this.parentNode.parentNode;
+						pre&&pre.parentNode.insertBefore(clo,pre);
+					}
+					//下移
+					tr[i].lastElementChild.children[1].onclick=function(){
+						var next=this.parentNode.parentNode.nextElementSibling;
+						var clo=this.parentNode.parentNode;
+						next&&next.parentNode.insertBefore(next,clo);
+					}
+				}
+				//全选
+				function selAll(){
+					for(var i=0;i<tr.length;i++){
+						if(tr[i].firstElementChild.firstElementChild.checked){
+							table[1].tHead.firstElementChild.firstElementChild.firstElementChild.checked='true';
+						}
+						else{
+							table[1].tHead.firstElementChild.firstElementChild.firstElementChild.checked='';
+							break;
+						}
+					}
+				}
+				//全选全不选
+				table[1].tHead.firstElementChild.firstElementChild.firstElementChild.onclick = function() {
+					for(var i = 0; i < tr.length; i++) {
+						if(this.checked) {
+							tr[i].firstElementChild.firstElementChild.checked = 'true';
+							tr[i].className = 'sel';
+						} else {
+							tr[i].firstElementChild.firstElementChild.checked = '';
+							tr[i].className = '';
+						}
+					}
+				}
+				//批量删除
+				del.onclick=function(){
+					for(var i=0;i<tr.length;i++){
+						if(tr[i].firstElementChild.firstElementChild.checked){
+							table[1].tBodies[0].removeChild(tr[i]);
+							i--;
+						}
+					}
+					
+				}
+				
+				//升序降序
+				var aBtn=document.getElementsByClassName('order');
+				var oSel=document.getElementsByTagName('select')[1];
+				
+				aBtn[0].onclick=function(){
+					var arr=[];
+				for(var i=0;i<tr.length;i++){
+						arr[i]=tr[i];
+					}
+					if(oSel.value==='编号'){
+						arr.sort(function(tr1,tr2){
+							var n1=parseInt(tr1.cells[1].innerHTML);
+							var n2=parseInt(tr2.cells[1].innerHTML)
+							return n1-n2;
+						});
+						for(var i=0;i<tr.length;i++){
+							tr[0].parentNode.appendChild(arr[i]);
+						}
+												
+					}else{
+						arr.sort(function(tr1,tr2){
+							var n1=parseInt(tr1.cells[3].innerHTML);
+							var n2=parseInt(tr2.cells[3].innerHTML)
+							return n1-n2;
+						});
+						
+						for(var i=0;i<tr.length;i++){
+							tr[0].parentNode.appendChild(arr[i]);
+						}
+					}
+				}
+				aBtn[1].onclick=function(){
+							var arr=[];
+				for(var i=0;i<tr.length;i++){
+						arr[i]=tr[i];
+					}
+				if(oSel.value==='编号'){
+						arr.sort(function(tr1,tr2){
+							var n1=parseInt(tr1.cells[1].innerHTML);
+							var n2=parseInt(tr2.cells[1].innerHTML)
+							return n2-n1;
+						});
+						for(var i=0;i<tr.length;i++){
+							tr[0].parentNode.appendChild(arr[i]);
+						}
+												
+					}else{
+						arr.sort(function(tr1,tr2){
+							var n1=parseInt(tr1.cells[3].innerHTML);
+							var n2=parseInt(tr2.cells[3].innerHTML)
+							return n2-n1;
+						});
+						
+						for(var i=0;i<tr.length;i++){
+							tr[0].parentNode.appendChild(arr[i]);
+						}
+					}
+				}
+			
+			
+				
+				
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="box">
+			<h2></h2>
+			<div id="main">
+				<div id="form">
+					<form>
+						<table>
+							<tbody>
+								<tr>
+									<td><label for="name">姓名</label></td>
+									<td><input type="text" id="name" /></td>
+									<td><label for="age">年龄</label></td>
+									<td><input type="text" id="age" /></td>
+								</tr>
+								<tr>
+									<td><label for="sex">性别</label></td>
+									<td>
+										<select type="text" id="sex">
+											<option>男</option>
+											<option>女</option>
+										</select>
+									</td>
+									<td><input id="add"  type="button" value="添加" /></td>
+									<td><input id="del"  type="button" value="批量删除" /></td>
+								</tr>
+								<tr>
+									<td><label for="sort">排序方式</label></td>
+									<td>
+										<select type="text" id="sort">
+											<option>编号</option>
+											<option>年龄</option>
+										</select>
+									</td>
+									<td><input class="order" type="button" value="升序" /></td>
+									<td><input class="order" type="button" value="降序" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+				<table cellspacing="10">
+					<thead>
+						<tr>
+							<th><input type="checkbox" />全选</th>
+							<th>序号</th>
+							<th>姓名</th>
+							<th>年龄</th>
+							<th>性别</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{margin: 0;padding: 0;}
+			div { width: 100px; cursor: default; height: 100px; background:blueviolet; position: absolute; top: 40px; left: 0px ;}
+		</style>
+		<script>
+			window.onload=function(){
+				var oDiv=document.getElementById('div1');
+				var json={top:[],left:[]};
+				
+				oDiv.onmousedown=function(ev){
+//					clearInterval(timer);
+					var ev=ev||event;
+				
+					if(oDiv.setCapture){ oDiv.setCapture(); }
+					
+					var t=oDiv.offsetTop;	
+					var l=oDiv.offsetLeft;
+					
+					var iTop=ev.clientY-t;
+					var iLeft=ev.clientX-l;
+					
+					json.top.push(t);
+					json.left.push(l);
+					
+					document.onmousemove=function(ev){
+						
+						var ev=ev||event;
+						
+						var nTop=ev.clientY-iTop;
+						var nLeft=ev.clientX-iLeft;
+						if(nTop<0) { nTop=0;}
+						if(nLeft<0) { nLeft=0;}
+						if(nTop>document.documentElement.clientHeight-oDiv.offsetHeight) { nTop=document.documentElement.clientHeight-oDiv.offsetHeight;}
+						if(nLeft>document.documentElement.clientWidth-oDiv.offsetWidth) { nLeft=document.documentElement.clientWidth-oDiv.offsetWidth;}
+						
+						json.top.push(nTop);
+						json.left.push(nLeft);
+						
+						oDiv.style.top=nTop+'px';
+						oDiv.style.left=nLeft+'px';
+						
+						
+					}
+					document.onmouseup=function(){
+						document.onmousemove=null;
+						if(oDiv.releaseCapture){ oDiv.releaseCapture();}
+					}
+					return false;
+				}
+				
+				
+				var oBtn=document.getElementsByTagName('input')[0];
+				var timer=null;
+				var onOff=true;
+				oBtn.onclick=function(){
+					if(onOff){
+						onOff=false;
+						clearInterval(timer);
+						var num=json.top.length-1;
+						timer=setInterval(function(){
+							oDiv.style.top=json.top[num]+'px';
+							oDiv.style.left=json.left[num]+'px';
+							num--;
+							if(num<0){
+								clearInterval(timer);
+								onOff=true;
+								json.left.length=json.top.length=0;
+							}
+							
+						},100)
+					}
+					
+				}
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<input type="button" value="回放"/>
+		<div id="div1"></div>
+	</body>
+</html>

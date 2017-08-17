@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{height: 1000px;}
+			div{background: red;width: 60px;height: 200px;position: fixed;}
+			#left{left: 0;height: 150px;width: 100px;}
+			#right{right: 0;}
+		</style>
+		<script>
+			window.onload=function(){
+				var aDiv=document.getElementsByTagName('div');
+				aDiv[1].style.top=(document.documentElement.clientHeight-aDiv[1].offsetHeight)/2+'px';
+				aDiv[0].style.top=(document.documentElement.clientHeight-aDiv[0].offsetHeight)/2+'px';
+			}
+		</script>
+	</head>
+	<body>
+		<div id="left"></div>
+		<div id="right"></div>
+	</body>
+</html>

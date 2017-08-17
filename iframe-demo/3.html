@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{margin: 0; padding: 0;}
+			#main{background: white; position: absolute; top: 30px; left:320px; border: 1px black solid; height: 1000px; z-index: -999;}
+		</style>
+		<script src="../js/jquery-1.11.0.js"></script>
+		<script>
+			window.onload=function(){
+				var oIframe=document.getElementById('iframe1');
+				var oList=oIframe.contentDocument.getElementById('list');
+				h=$(window).height()-30;
+				console.log(h);
+				oList.style.height=h+'px';
+				oIframe.style.height=h+20+'px';
+			}
+		</script>
+	</head>
+	<body>
+		<iframe id="iframe1" title="3" frameborder="no"width="100%" scrolling="no" src="side.html" style="position: fixed;"></iframe>
+		<div id="main">
+			333333333333333333333333333333333333333333333
+		</div>
+	</body>
+</html>
