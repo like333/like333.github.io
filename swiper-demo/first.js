@@ -1,4 +1,7 @@
-  var arr = ['护', '染', '烫', '套', '洗', '剪'];
+window.onload = function(){
+
+
+var arr = ['护', '染', '烫', '套', '洗', '剪'];
   var mySwiper = new Swiper('.swiper-container', {
       direction: 'horizontal',
       pagination: '.swiper-pagination',
@@ -31,3 +34,4 @@
 
 
   });
+    }
